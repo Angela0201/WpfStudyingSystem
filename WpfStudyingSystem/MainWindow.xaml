@@ -4,9 +4,103 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfStudyingSystem"
+        xmlns:res="clr-namespace:WpfStudyingSystem.Resources"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="{x:Static res:Strings.AppTitle}" Height="600" Width="900" MinHeight="520" MinWidth="860" SizeToContent="WidthAndHeight">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="0,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0"
+                      Header="{x:Static res:Strings.UI_CoursesSelectable}"
+                      Margin="0,0,0,8">
+                <ListBox x:Name="CoursesList"/>
+            </GroupBox>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Content="{x:Static res:Strings.Ui_Create}" Margin="0,0,5,0"/>
+                <Button Content="{x:Static res:Strings.Ui_Delete}" Margin="0,0,5,0"/>
+                <Button Content="{x:Static res:Strings.Ui_Redact}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="0,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0"
+                      Header="{x:Static res:Strings.UI_TeacherName}"
+                      Margin="0,0,0,8">
+                <TextBlock x:Name="TeacherNameText" Margin="6,4"/>
+            </GroupBox>
+
+            <GroupBox Grid.Row="1"
+                      Header="{x:Static res:Strings.UI_StudentsList}"
+                      Margin="0,0,0,8">
+                <ListBox x:Name="StudentsList"/>
+            </GroupBox>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,8">
+                <Button Content="{x:Static res:Strings.Ui_Add}" Margin="0,0,5,0"/>
+                <Button Content="{x:Static res:Strings.Ui_Delete}"/>
+            </StackPanel>
+
+            <Button Grid.Row="3"
+                    Content="{x:Static res:Strings.Ui_Filter}"
+                    Margin="0,0,0,8"
+                    Height="28"/>
+
+            <GroupBox Grid.Row="4"
+                      Header="{x:Static res:Strings.UI_AssignmentsListSelectable}"
+                      Margin="0,0,0,8">
+                <ListBox x:Name="AssignmentsList"/>
+            </GroupBox>
+
+            <StackPanel Grid.Row="5" Orientation="Horizontal">
+                <Button Content="{x:Static res:Strings.Ui_Create}" Margin="0,0,5,0"/>
+                <Button Content="{x:Static res:Strings.Ui_Delete}" Margin="0,0,5,0"/>
+                <Button Content="{x:Static res:Strings.Ui_Redact}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0"
+                      Header="{x:Static res:Strings.Ui_StudentInfo}"
+                      Margin="0,0,0,8">
+                <TextBlock x:Name="StudentInfoText" Margin="6,4" TextWrapping="Wrap"/>
+            </GroupBox>
+
+            <GroupBox Grid.Row="1"
+                      Header="{x:Static res:Strings.Ui_AssignmentInfo}"
+                      Margin="0,0,0,8">
+                <TextBlock x:Name="AssignmentInfoText" Margin="6,4" TextWrapping="Wrap"/>
+            </GroupBox>
+
+            <Button Grid.Row="2"
+                    Content="{x:Static res:Strings.Ui_Import}"
+                    Height="28"
+                    HorizontalAlignment="Stretch"/>
+        </Grid>
     </Grid>
 </Window>
