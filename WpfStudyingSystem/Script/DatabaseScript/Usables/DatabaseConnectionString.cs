@@ -11,6 +11,6 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Usables
     {
         private string databaseName = "StudySystemDB";
         public string DatabaseName { get => databaseName; set => databaseName = value; }
-        public string ConnectionString => @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\" + databaseName+@".mdf;Integrated Security=True";
+        public string ConnectionString => @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\" +databaseName+@".mdf;Integrated Security=True";
     }
 }
