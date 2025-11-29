@@ -28,19 +28,24 @@ namespace WpfStudyingSystem.Script.DatabaseScript
             conn.Open();
 
 
+            var adapter = new SqlDataAdapter("SELECT * FROM " + tableName, conn);
+            var table = new DataTable();
+            adapter.Fill(table);
 
             conn.Close();
-            return new DataTable();
+
+            return table;
         }
 
-        public DataRow GetNewDataRow(string tableName)
+        public void ExecuteCommand(string command)
         {
-            throw new NotImplementedException();
-        }
+            var conn = new SqlConnection(ConnStr);
+            conn.Open();
 
-        public void RecordToTable(string tableName, DataRow data)
-        {
-            throw new NotImplementedException();
+            var cmd = new SqlCommand(command, conn);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
         }
     }
 }

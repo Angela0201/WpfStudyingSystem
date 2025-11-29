@@ -10,8 +10,7 @@ namespace WpfStudyingSystem.Script.Interfaces
     public interface IDatabaseController
     {
         void GenerateDatabase();
-        void RecordToTable(string tableName, DataRow data);
         DataTable GetFullTable(string tableName);
-        DataRow GetNewDataRow(string tableName);
+        void ExecuteCommand(string command);
     }
 }

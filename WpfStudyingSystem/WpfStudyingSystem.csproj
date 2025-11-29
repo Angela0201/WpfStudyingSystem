@@ -81,6 +81,7 @@
     <Compile Include="Script\DatabaseScript\Interfaces\IDatabaseGenerator.cs" />
     <Compile Include="Script\DatabaseScript\Usables\DatabaseConnectionString.cs" />
     <Compile Include="Script\DatabaseScript\Usables\DatabaseGenerator.cs" />
+    <Compile Include="Script\DatabaseScript\Usables\Sets\TableNameSet.cs" />
     <Compile Include="StudySystemDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
