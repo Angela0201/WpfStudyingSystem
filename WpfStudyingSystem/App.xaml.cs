@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfStudyingSystem.Script.DatabaseScript;
+using WpfStudyingSystem.Script.Interfaces;
 
 namespace WpfStudyingSystem
 {
@@ -13,5 +15,10 @@ namespace WpfStudyingSystem
     /// </summary>
     public partial class App : Application
     {
+        IDatabaseController databaseController = new DatabaseController();
+        public App()
+        {
+            databaseController.GenerateDatabase();
+        }
     }
 }
