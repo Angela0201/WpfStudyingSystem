@@ -79,6 +79,7 @@
     <Compile Include="Script\DatabaseScript\Interfaces\IDatabaseConnectionString.cs" />
     <Compile Include="Script\DatabaseScript\Interfaces\IDatabaseController.cs" />
     <Compile Include="Script\DatabaseScript\Interfaces\IDatabaseGenerator.cs" />
+    <Compile Include="Script\DatabaseScript\Interfaces\IStudyDatabaseAssigner.cs" />
     <Compile Include="Script\DatabaseScript\Usables\DatabaseConnectionString.cs" />
     <Compile Include="Script\DatabaseScript\Usables\DatabaseGenerator.cs" />
     <Compile Include="Script\DatabaseScript\Usables\Sets\TableNameSet.cs" />
