@@ -31,7 +31,7 @@ namespace WpfStudyingSystem
             {
                 foreach (object o in dr.ItemArray)
                 {
-                    str += o.ToString();
+                    str += o.ToString() + ", ";
                 }
             }
             MessageBox.Show(str);
