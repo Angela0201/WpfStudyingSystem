@@ -9,8 +9,9 @@ namespace WpfStudyingSystem.Script.Interfaces
 {
     public interface IDatabaseController
     {
+        //To controll database by hand
         void GenerateDatabase();
-        DataTable GetFullTable(string tableName);
         void ExecuteCommand(string command);
+        DataTable ExecuteReturnCommand(string command);
     }
 }

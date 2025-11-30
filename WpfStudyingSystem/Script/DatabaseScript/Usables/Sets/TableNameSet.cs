@@ -8,6 +8,8 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Usables
 {
     public static class TableNameSet
     {
+        //To avoid hardstrings or misspeling, use this values, as if it was enumeration
+        
         public static readonly string STUDENTS = "Students";
         public static readonly string ASSIGNMENTS = "Assignments";
         public static readonly string TEACHERS = "Teachers";

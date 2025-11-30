@@ -12,6 +12,10 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Usables
     {
         public void GenerateDatabase(string ConnStr)
         {
+
+            //Should make a tables, in case there is wome missing, but consider the way tha database works now, idk do we really need this
+            //Ill leave it for confidence
+
             var conn = new SqlConnection(ConnStr);
             conn.Open();
 

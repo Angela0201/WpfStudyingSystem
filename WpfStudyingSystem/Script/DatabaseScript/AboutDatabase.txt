@@ -1,0 +1,5 @@
+﻿Idk how to correctly implement database
+
+Right now, as i understanded, the database is generated locally and connects itself to "StudySystemDB.mdf", 
+then its extract all data from it, and when you saving data during runtime, it saves the data in your local database (not the mdf file).
+That way, when you restart an application, all data, that was saved in runtime, is deleted, but the base data remain (that is in the mdf file).

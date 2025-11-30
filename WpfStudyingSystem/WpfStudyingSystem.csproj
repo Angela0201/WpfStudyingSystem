@@ -150,6 +150,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>StudySystemDB.mdf</DependentUpon>
     </Content>
+    <Content Include="Script\DatabaseScript\Queris\InitQuery.sql" />
+    <Resource Include="Script\DatabaseScript\AboutDatabase.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
