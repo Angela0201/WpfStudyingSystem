@@ -144,10 +144,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database\StudySystemDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\StudySystemDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>StudySystemDB.mdf</DependentUpon>
     </Content>
     <Content Include="Script\DatabaseScript\Queris\InitQuery.sql" />
