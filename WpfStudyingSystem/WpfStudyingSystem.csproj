@@ -147,8 +147,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\StudySystemDB_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>StudySystemDB.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Script\DatabaseScript\Queris\InitQuery.sql" />
     <Resource Include="Script\DatabaseScript\AboutDatabase.txt" />
