@@ -1,0 +1,9 @@
+﻿Idk how to correctly implement database
+
+AS I UNDERSTANDED, it works that way right now:
+
+1.It takes the data from "StudySystemDB.mdf" in database folder and creates new one in bin foldeer
+2.All the runtime updates are saved in bin database, not the one in file
+3.if you update the files in mdf database in Database, and then update the databases in sql server explorer, then the bin database will bee recreated by the first step
+
+P.S. May be its good to attach event, so all he tables will assign themselves correctly, but i need to read how.

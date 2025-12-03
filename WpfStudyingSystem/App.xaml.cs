@@ -5,6 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfStudyingSystem.Script.DatabaseScript;
+using WpfStudyingSystem.Script.DatabaseScript.Usables;
+using WpfStudyingSystem.Script.Interfaces;
 
 namespace WpfStudyingSystem
 {
