@@ -114,6 +114,7 @@
     <Compile Include="Script\DatabaseScript\Usables\Sets\TableNameSet.cs" />
     <Compile Include="Script\Services\Interfaces\IServiceHolder.cs" />
     <Compile Include="Script\Services\ServiceHolder.cs" />
+    <Compile Include="Script\ViewModels\MainViewModel.cs" />
     <Compile Include="StudySystemDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
