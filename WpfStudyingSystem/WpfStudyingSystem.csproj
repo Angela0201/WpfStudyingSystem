@@ -92,12 +92,24 @@
     </Compile>
     <Compile Include="Script\Classes\BaseEntities\Assignment.cs" />
     <Compile Include="Script\Classes\BaseEntities\Course.cs" />
+    <Compile Include="Script\Classes\BaseEntities\Human.cs" />
+    <Compile Include="Script\Classes\Constructor\BuildDirector.cs" />
+    <Compile Include="Script\Classes\Constructor\Builders\CourseBuilder.cs" />
+    <Compile Include="Script\Classes\Constructor\Builders\CreditAssignmentBuilder.cs" />
+    <Compile Include="Script\Classes\Constructor\Builders\EAPAssignmentBuilder.cs" />
+    <Compile Include="Script\Classes\Constructor\Builders\GradeAssignmentBuilder.cs" />
+    <Compile Include="Script\Classes\Constructor\Builders\StudentBuilder.cs" />
+    <Compile Include="Script\Classes\Constructor\Builders\TeacherBuilder.cs" />
     <Compile Include="Script\Classes\Instances\Assignments\CreditAssignment.cs" />
     <Compile Include="Script\Classes\Instances\Assignments\EAPAssignment.cs" />
     <Compile Include="Script\Classes\Instances\Assignments\GradeAssignment.cs" />
+    <Compile Include="Script\Classes\Interfaces\IBuildDirector.cs" />
+    <Compile Include="Script\Classes\Interfaces\ICourseBuilder.cs" />
+    <Compile Include="Script\Classes\Interfaces\IAssignmentBuilder.cs" />
+    <Compile Include="Script\Classes\Interfaces\IHumanBuilder.cs" />
     <Compile Include="Script\Classes\Sets\AssignmentTypesEnum.cs" />
-    <Compile Include="Script\Classes\BaseEntities\Student.cs" />
-    <Compile Include="Script\Classes\BaseEntities\Teacher.cs" />
+    <Compile Include="Script\Classes\Instances\Humans\Student.cs" />
+    <Compile Include="Script\Classes\Instances\Humans\Teacher.cs" />
     <Compile Include="Script\Classes\Interfaces\IAged.cs" />
     <Compile Include="Script\Classes\Interfaces\ICompositNameHolder.cs" />
     <Compile Include="Script\Classes\Interfaces\ISimpleNameHolder.cs" />
@@ -183,6 +195,7 @@
       <DependentUpon>StudySystemDB.mdf</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Script\Classes\BuilderInstruction.txt" />
     <Content Include="Script\DatabaseScript\Queris\InitQuery.sql" />
     <Resource Include="Script\DatabaseScript\AboutDatabase.txt" />
   </ItemGroup>

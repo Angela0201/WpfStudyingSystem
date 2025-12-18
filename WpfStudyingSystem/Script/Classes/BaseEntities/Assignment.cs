@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfStudyingSystem.Script.Classes.BaseEntities.Sets;
 using WpfStudyingSystem.Script.Classes.Interfaces;
 
 namespace WpfStudyingSystem.Script.Classes.BaseEntities
@@ -14,15 +15,15 @@ namespace WpfStudyingSystem.Script.Classes.BaseEntities
 
         private DateTime date;
         private string description;
-        private int type;
+        private AssignmentTypesEnum type;
 
         public int Id => id;
         public string Name => name;
         public DateTime Date => date;
         public string Description => description;
-        public int Type => type;
+        public AssignmentTypesEnum Type => type;
 
-        public Assignment(int gId, string gName, DateTime gDate, string gDescription, int gType)
+        public Assignment(int gId, string gName, DateTime gDate, string gDescription, AssignmentTypesEnum gType)
         {
             id = gId;
             name = gName;

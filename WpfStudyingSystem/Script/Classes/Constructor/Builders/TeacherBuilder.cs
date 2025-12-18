@@ -1,0 +1,52 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using WpfStudyingSystem.Script.Classes.BaseEntities;
+using WpfStudyingSystem.Script.Classes.Interfaces;
+using WpfStudyingSystem.Script.DatabaseScript.Interfaces;
+using WpfStudyingSystem.Script.DatabaseScript.Usables;
+
+namespace WpfStudyingSystem.Script.Classes.Constructor.Builders
+{
+    public class TeacherBuilder : IHumanBuilder
+    {
+        private int nId;
+        private string nFirstName = "NotImplementedName";
+        private string nLastName = "NotImplementedLastname";
+        private int nAge = 0;
+
+        public Human Build()
+        {
+            //somehoq, i cant get it in one line, only separated by this,
+            //and "app" is considered as static, so i cant acces it directly
+            var app = (App)Application.Current;
+            IDatabaseGetter getter = app.Services.GetService<IDatabaseGetter>();
+
+            nId = getter.GetUniqueId(TableNameSet.COURSES);
+
+            return new Teacher(nId, nFirstName, nLastName, nAge);
+        }
+
+        public void Reset()
+        {
+            nFirstName = "NotImplementedName"; 
+            nLastName = "NotImplementedLastname";
+            nAge = 0;
+        }
+
+        public void SetAge(int age)
+        {
+            nAge = age;
+        }
+
+        public void SetName(string firstName, string lastName)
+        {
+            nFirstName = firstName;
+            nLastName = lastName;
+        }
+    }
+}
