@@ -13,6 +13,7 @@ namespace WpfStudyingSystem.Script.Classes.Interfaces
         void SetName(string name);
         void SetDescription(string desc);
         void SetDate (DateTime date);
+        void SetId(int id);
         Assignment Build();
     }
 }

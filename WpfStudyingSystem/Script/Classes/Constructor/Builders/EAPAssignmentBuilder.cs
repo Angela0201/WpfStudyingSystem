@@ -16,7 +16,7 @@ namespace WpfStudyingSystem.Script.Classes.Constructor.Builders
 {
     public class EAPAssignmentBuilder: IAssignmentBuilder
     {
-        private int nId;
+        private int nId = -1;
         private string nName = "NotImplemented";
 
         private DateTime nDate = DateTime.Now;
@@ -26,10 +26,13 @@ namespace WpfStudyingSystem.Script.Classes.Constructor.Builders
         {
             //somehoq, i cant get it in one line, only separated by this,
             //and "app" is considered as static, so i cant acces it directly
-            var app = (App)Application.Current;
-            IDatabaseGetter getter = app.Services.GetService<IDatabaseGetter>();
+            if (nId < 0)
+            {
+                var app = (App)Application.Current;
+                IDatabaseGetter getter = app.Services.GetService<IDatabaseGetter>();
 
-            nId = getter.GetUniqueId(TableNameSet.ASSIGNMENTS);
+                nId = getter.GetUniqueId(TableNameSet.ASSIGNMENTS);
+            }
             nType = AssignmentTypesEnum.EAP;
 
             return new CreditAssignment(nId, nName, nDate, nDescription, nType);
@@ -37,6 +40,7 @@ namespace WpfStudyingSystem.Script.Classes.Constructor.Builders
 
         public void Reset()
         {
+            nId = -1;
             nName = "NotImplemented";
             nDate = DateTime.Now;
             nDescription = "";
@@ -50,6 +54,11 @@ namespace WpfStudyingSystem.Script.Classes.Constructor.Builders
         public void SetDescription(string desc)
         {
             nDescription = desc;
+        }
+
+        public void SetId(int id)
+        {
+            nId = id;
         }
 
         public void SetName(string name)
