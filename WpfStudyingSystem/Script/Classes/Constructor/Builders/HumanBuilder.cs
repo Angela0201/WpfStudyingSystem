@@ -6,23 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WpfStudyingSystem.Script.Classes.BaseEntities;
-using WpfStudyingSystem.Script.Classes.BaseEntities.Sets;
-using WpfStudyingSystem.Script.Classes.Instances.Assignments;
+using WpfStudyingSystem.Script.Classes.Instances.Humans;
 using WpfStudyingSystem.Script.Classes.Interfaces;
 using WpfStudyingSystem.Script.DatabaseScript.Interfaces;
 using WpfStudyingSystem.Script.DatabaseScript.Usables;
 
 namespace WpfStudyingSystem.Script.Classes.Constructor.Builders
 {
-    public class CreditAssignmentBuilder : IAssignmentBuilder
+    public class HumanBuilder: IHumanBuilder
     {
         private int nId = -1;
-        private string nName = "NotImplemented";
+        private string nFirstName = "NotImplementedName";
+        private string nLastName = "NotImplementedLastname";
+        private int nAge = 0;
 
-        private DateTime nDate = DateTime.Now;
-        private string nDescription = "";
-        private AssignmentTypesEnum nType;
-        public Assignment Build()
+        public Human Build()
         {
             //somehoq, i cant get it in one line, only separated by this,
             //and "app" is considered as static, so i cant acces it directly
@@ -31,29 +29,23 @@ namespace WpfStudyingSystem.Script.Classes.Constructor.Builders
                 var app = (App)Application.Current;
                 IDatabaseGetter getter = app.Services.GetService<IDatabaseGetter>();
 
-                nId = getter.GetUniqueId(TableNameSet.ASSIGNMENTS);
+                nId = getter.GetUniqueId(TableNameSet.STUDENTS);
             }
-            nType = AssignmentTypesEnum.Credit;
 
-            return new CreditAssignment(nId, nName, nDate, nDescription, nType);
+            return new BasicHuman(nId, nFirstName, nLastName, nAge);
         }
 
         public void Reset()
         {
             nId = -1;
-            nName = "NotImplemented";
-            nDate = DateTime.Now;
-            nDescription = "";
+            nFirstName = "NotImplementedName";
+            nLastName = "NotImplementedLastname";
+            nAge = 0;
         }
 
-        public void SetDate(DateTime date)
+        public void SetAge(int age)
         {
-            nDate = date;
-        }
-
-        public void SetDescription(string desc)
-        {
-            nDescription = desc;
+            nAge = age;
         }
 
         public void SetId(int id)
@@ -61,9 +53,11 @@ namespace WpfStudyingSystem.Script.Classes.Constructor.Builders
             nId = id;
         }
 
-        public void SetName(string name)
+        public void SetName(string firstName, string lastName)
         {
-            nName = name;
+            nFirstName = firstName;
+            nLastName = lastName;
         }
+
     }
 }

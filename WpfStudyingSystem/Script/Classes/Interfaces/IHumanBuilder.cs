@@ -12,6 +12,7 @@ namespace WpfStudyingSystem.Script.Classes.Interfaces
         void Reset();
         void SetName(string firstName, string lastName);
         void SetAge(int age);
+        void SetId(int id);
         Human Build();
     }
 }

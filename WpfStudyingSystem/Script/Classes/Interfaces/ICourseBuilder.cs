@@ -12,6 +12,7 @@ namespace WpfStudyingSystem.Script.Classes.Interfaces
         void Reset();
         void SetName(string name);
         void SetTeacher(int teacherId);
+        void SetId(int id);
         Course Build();
     }
 }
