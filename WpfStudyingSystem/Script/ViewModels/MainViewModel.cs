@@ -10,12 +10,17 @@ using Microsoft.Extensions.DependencyInjection;
 using WpfStudyingSystem.Script.Classes.BaseEntities;
 using WpfStudyingSystem.Script.DatabaseScript.Interfaces;
 using WpfStudyingSystem.Script.DatabaseScript.Usables;
+using WpfStudyingSystem.Script.Classes.Interfaces;
+using WpfStudyingSystem.Script.Classes.Constructor.Builders;
 
 namespace WpfStudyingSystem.Script.ViewModels
 {
     public class MainViewModel
     {
         private readonly IDatabaseGetter getter;
+        private readonly IDatabaseSetter setter;
+        private readonly IDatabaseComplexGetter complexGetter;
+        private readonly IBuildDirector director;
 
         public ObservableCollection<Course> Courses { get; }
             = new ObservableCollection<Course>();
@@ -24,27 +29,23 @@ namespace WpfStudyingSystem.Script.ViewModels
         {
             var app = (App)Application.Current;
             getter = app.Services.GetService<IDatabaseGetter>();
-            LoadCourses();
+            complexGetter = app.Services.GetService<IDatabaseComplexGetter>();
+            director = app.Services.GetService<IBuildDirector>();
+
+
+            UpdateCourses();
         }
 
-        private void LoadCourses()
+        private void UpdateCourses()
         {
-            try
-            {
-                DataTable table = getter.GetTable(TableNameSet.COURSES);
+            DataTable table = getter.GetTable(TableNameSet.COURSES);
 
-                foreach (DataRow row in table.Rows)
-                {
-                    var course = new Course(
-                        (int)row["Id"],
-                        (string)row["Name"],
-                        (int)row["TeacherId"]);
-
-                    Courses.Add(course);
-                }
-            }
-            catch
+            foreach (DataRow row in table.Rows)
             {
+                Courses.Add(director.BuildCourse(new CourseBuilder(),
+                    (string)row["Name"],
+                    (int)row["TeacherId"],
+                    (int)row["Id"]));
             }
         }
     }
