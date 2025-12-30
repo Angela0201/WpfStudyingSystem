@@ -1,0 +1,12 @@
+﻿To use this constructor, do the following:
+
+1. get director:
+	IBuildDirector director = App.Services.GetService<IBuildDirector>();
+
+2. give director the builder and arguments:
+	Human newhuman = director.BuildHuman(new TeacherBuilder(), args*);
+
+	if you want to build a student, then swap "new TeacherBuilder()" with "new StudentBuilder()"
+	and if yo want to build assignment, then use director.BuildAssignment and redact as previous
+
+thats it

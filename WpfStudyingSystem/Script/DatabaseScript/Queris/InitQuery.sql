@@ -1,11 +1,16 @@
 ﻿/*Same as table generation, but using queries, for StudySystem.mdf*/
-
-IF OBJECT_ID('Students') IS NULL
-                CREATE TABLE Students(
+IF OBJECT_ID('Humans') IS NULL
+                CREATE TABLE Humans(
                 Id INT NOT NULL PRIMARY KEY IDENTITY,
                 FirstName VARCHAR(50) NOT NULL,
                 LastName VARCHAR(50) NOT NULL,
                 Age INT NOT NULL
+                );
+
+IF OBJECT_ID('Students') IS NULL
+                CREATE TABLE Students(
+                Id INT NOT NULL PRIMARY KEY IDENTITY,
+                HumanId INT NOT NULL
                 );
 
 IF OBJECT_ID('Assignments') IS NULL
@@ -19,8 +24,7 @@ IF OBJECT_ID('Assignments') IS NULL
 IF OBJECT_ID('Teachers') IS NULL
                 CREATE TABLE Teachers(
                 Id INT NOT NULL PRIMARY KEY IDENTITY,
-                FirstName VARCHAR(50) NOT NULL,
-                LastName VARCHAR(50) NOT NULL
+                HumanId INT NOT NULL
                 );
 
 

@@ -9,14 +9,18 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Usables
     public static class TableNameSet
     {
         //To avoid hardstrings or misspeling, use this values, as if it was enumeration
-        
-        public static readonly string STUDENTS = "Students";
-        public static readonly string ASSIGNMENTS = "Assignments";
-        public static readonly string TEACHERS = "Teachers";
 
-        public static readonly string ASSIGNMENTS_STATISTICS = "AssignmentsStatistics";
-        public static readonly string COURSES = "Courses";
-        public static readonly string DRAFTS = "Drafts";
+        public const string HUMANS = "Humans";
+
+        public const string STUDENTS = "Students";
+        public const string ASSIGNMENTS = "Assignments";
+        public const string TEACHERS = "Teachers";
+
+        public const string ASSIGNMENTS_STATISTICS = "AssignmentsStatistics";
+        public const string COURSES = "Courses";
+        public const string DRAFTS = "Drafts";
+
+        public const string ASSIGNMENTS_DEPENDENCIES = "AssignmentsDependencies";
 
     }
 }
