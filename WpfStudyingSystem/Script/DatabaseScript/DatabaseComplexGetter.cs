@@ -87,13 +87,13 @@ namespace WpfStudyingSystem.Script.DatabaseScript
             switch (from)
             {
                 case TableNameSet.HUMANS:
-                    return director.BuildHuman(new HumanBuilder(), (string)row["FirstName"], (string)row["SecondName"], (int)row["Age"], (int)row["Id"]);
+                    return director.BuildHuman(new HumanBuilder(), (string)row["FirstName"], (string)row["LastName"], (int)row["Age"], (int)row["Id"]);
 
                 case TableNameSet.TEACHERS:
-                    return director.BuildHuman(new TeacherBuilder(), (string)row["FirstName"], (string)row["SecondName"], (int)row["Age"], (int)row["Id"]);
+                    return director.BuildHuman(new TeacherBuilder(), (string)row["FirstName"], (string)row["LastName"], (int)row["Age"], (int)row["Id"]);
 
                 case TableNameSet.STUDENTS:
-                    return director.BuildHuman(new StudentBuilder(), (string)row["FirstName"], (string)row["SecondName"], (int)row["Age"], (int)row["Id"]);
+                    return director.BuildHuman(new StudentBuilder(), (string)row["FirstName"], (string)row["LastName"], (int)row["Age"], (int)row["Id"]);
                 default: return null;
 
             }

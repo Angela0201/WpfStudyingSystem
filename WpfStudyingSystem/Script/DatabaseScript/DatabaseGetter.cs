@@ -47,6 +47,40 @@ namespace WpfStudyingSystem.Script.DatabaseScript
             return table;
         }
 
+        public DataTable GetAssignmentTableViaCourseId( int CourseId)
+        {
+            var conn = new SqlConnection(ConnStr);
+            conn.Open();
+
+            var adapter = new SqlDataAdapter($"SELECT * FROM {TableNameSet.ASSIGNMENTS}" +
+                          $" LEFT JOIN {TableNameSet.ASSIGNMENTS_DEPENDENCIES} ON {TableNameSet.ASSIGNMENTS}.Id = {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.AssignmentId" +
+                          $" WHERE {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.CourseId = {CourseId}", conn);
+            var table = new DataTable();
+            adapter.Fill(table);
+
+            conn.Close();
+
+            return table;
+        }
+
+        public DataTable GetStudentTableViaCourseId( int CourseId)
+        {
+
+            var conn = new SqlConnection(ConnStr);
+            conn.Open();
+
+            var adapter = new SqlDataAdapter($"SELECT * FROM {TableNameSet.STUDENTS}" +
+                          $" LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.STUDENTS}.HumanId = {TableNameSet.HUMANS}.Id" +
+                          $" LEFT JOIN {TableNameSet.DRAFTS} ON {TableNameSet.STUDENTS}.Id = {TableNameSet.DRAFTS}.StudentId" +
+                          $" WHERE {TableNameSet.DRAFTS}.CourseId = {CourseId}", conn);
+            var table = new DataTable();
+            adapter.Fill(table);
+
+            conn.Close();
+
+            return table;
+        }
+
         public int GetUniqueId(string tableName)
         {
             return GetTable(tableName).Rows.Count + 1;
@@ -58,7 +92,7 @@ namespace WpfStudyingSystem.Script.DatabaseScript
             conn.Open();
 
             var adapter = new SqlDataAdapter($"SELECT * FROM {TableNameSet.STUDENTS}"+
-                                             $"LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.STUDENTS}.HumanId = {TableNameSet.HUMANS}.Id", conn);
+                                             $" LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.STUDENTS}.HumanId = {TableNameSet.HUMANS}.Id", conn);
             var table = new DataTable();
             adapter.Fill(table);
 
@@ -73,7 +107,7 @@ namespace WpfStudyingSystem.Script.DatabaseScript
             conn.Open();
 
             var adapter = new SqlDataAdapter($"SELECT * FROM {TableNameSet.TEACHERS}" +
-                                             $"LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.TEACHERS}.HumanId = {TableNameSet.HUMANS}.Id", conn);
+                                             $" LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.TEACHERS}.HumanId = {TableNameSet.HUMANS}.Id", conn);
             var table = new DataTable();
             adapter.Fill(table);
 
