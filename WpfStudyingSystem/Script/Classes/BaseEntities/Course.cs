@@ -24,5 +24,10 @@ namespace WpfStudyingSystem.Script.Classes.BaseEntities
             name = gName;
             teacherId = gTeacherId;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

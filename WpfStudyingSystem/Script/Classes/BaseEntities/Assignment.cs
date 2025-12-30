@@ -33,5 +33,10 @@ namespace WpfStudyingSystem.Script.Classes.BaseEntities
         }
 
         public abstract int GetResults(int points);
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -27,5 +27,10 @@ namespace WpfStudyingSystem.Script.Classes.BaseEntities
             lastName = glastName;
             age = gAge;
         }
+
+        public override string ToString()
+        {
+            return FullName;
+        }
     }
 }
