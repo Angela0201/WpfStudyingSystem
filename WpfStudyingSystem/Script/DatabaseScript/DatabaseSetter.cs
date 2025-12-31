@@ -108,10 +108,10 @@ WHERE TeacherId = {teacherId};";
 
 
 
-        public void SetAssignment(Assignment assignment,int courseId)
+        public void SetAssignment(Assignment assignment, int courseId)
         {///Crates assignment and sets it in assignment dependencies table
             string command =
-$@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Id, Name Date, Description, Type)
+$@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Id, Name, Date, Description, Type)
 VALUES ({assignment.Id}, {assignment.Name}, {assignment.Date}, {assignment.Description}, {assignment.Type});";
             AssignData(command);
 

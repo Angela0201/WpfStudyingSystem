@@ -34,6 +34,11 @@ namespace WpfStudyingSystem.Script.ViewModels
 
 
             UpdateCourses();
+
+            if (Courses.Count == 0)
+            {
+                Courses.Add(new Course(1, "Demo course", -1));
+            }
         }
 
         private void UpdateCourses()

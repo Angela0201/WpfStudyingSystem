@@ -70,11 +70,92 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Course name is required..
+        /// </summary>
+        public static string Msg_CourseNameRequired {
+            get {
+                return ResourceManager.GetString("Msg_CourseNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is required..
+        /// </summary>
+        public static string Msg_NameRequired {
+            get {
+                return ResourceManager.GetString("Msg_NameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save failed..
+        /// </summary>
+        public static string Msg_SaveFailed {
+            get {
+                return ResourceManager.GetString("Msg_SaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select an assignment first..
+        /// </summary>
+        public static string Msg_SelectAssignmentFirst {
+            get {
+                return ResourceManager.GetString("Msg_SelectAssignmentFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a course first..
+        /// </summary>
+        public static string Msg_SelectCourseFirst {
+            get {
+                return ResourceManager.GetString("Msg_SelectCourseFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Services are not available..
+        /// </summary>
+        public static string Msg_ServicesNotAvailable {
+            get {
+                return ResourceManager.GetString("Msg_ServicesNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teacher name is required..
+        /// </summary>
+        public static string Msg_TeacherNameRequired {
+            get {
+                return ResourceManager.GetString("Msg_TeacherNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Ui_Add {
             get {
                 return ResourceManager.GetString("Ui_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create assignment.
+        /// </summary>
+        public static string Ui_Assignment_CreateTitle {
+            get {
+                return ResourceManager.GetString("Ui_Assignment_CreateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redact assignment.
+        /// </summary>
+        public static string Ui_Assignment_RedactTitle {
+            get {
+                return ResourceManager.GetString("Ui_Assignment_RedactTitle", resourceCulture);
             }
         }
         
@@ -93,6 +174,33 @@ namespace WpfStudyingSystem.Resources {
         public static string UI_AssignmentsListSelectable {
             get {
                 return ResourceManager.GetString("UI_AssignmentsListSelectable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Ui_Cancel {
+            get {
+                return ResourceManager.GetString("Ui_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create course.
+        /// </summary>
+        public static string Ui_Course_CreateTitle {
+            get {
+                return ResourceManager.GetString("Ui_Course_CreateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redact course.
+        /// </summary>
+        public static string Ui_Course_RedactTitle {
+            get {
+                return ResourceManager.GetString("Ui_Course_RedactTitle", resourceCulture);
             }
         }
         
@@ -124,6 +232,24 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Ui_Description {
+            get {
+                return ResourceManager.GetString("Ui_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Due date.
+        /// </summary>
+        public static string Ui_DueDate {
+            get {
+                return ResourceManager.GetString("Ui_DueDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Ui_Filter {
@@ -138,6 +264,24 @@ namespace WpfStudyingSystem.Resources {
         public static string Ui_Import {
             get {
                 return ResourceManager.GetString("Ui_Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Ui_Name {
+            get {
+                return ResourceManager.GetString("Ui_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Ui_Ok {
+            get {
+                return ResourceManager.GetString("Ui_Ok", resourceCulture);
             }
         }
         
@@ -169,11 +313,29 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teacher full name.
+        /// </summary>
+        public static string Ui_TeacherFullName {
+            get {
+                return ResourceManager.GetString("Ui_TeacherFullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teacher name.
         /// </summary>
         public static string UI_TeacherName {
             get {
                 return ResourceManager.GetString("UI_TeacherName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Ui_Type {
+            get {
+                return ResourceManager.GetString("Ui_Type", resourceCulture);
             }
         }
     }

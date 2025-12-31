@@ -120,6 +120,27 @@
   <data name="AppTitle" xml:space="preserve">
     <value>Studying system</value>
   </data>
+  <data name="Msg_CourseNameRequired" xml:space="preserve">
+    <value>Course name is required.</value>
+  </data>
+  <data name="Msg_NameRequired" xml:space="preserve">
+    <value>Name is required.</value>
+  </data>
+  <data name="Msg_SaveFailed" xml:space="preserve">
+    <value>Save failed.</value>
+  </data>
+  <data name="Msg_SelectAssignmentFirst" xml:space="preserve">
+    <value>Select an assignment first.</value>
+  </data>
+  <data name="Msg_SelectCourseFirst" xml:space="preserve">
+    <value>Select a course first.</value>
+  </data>
+  <data name="Msg_ServicesNotAvailable" xml:space="preserve">
+    <value>Services are not available.</value>
+  </data>
+  <data name="Msg_TeacherNameRequired" xml:space="preserve">
+    <value>Teacher name is required.</value>
+  </data>
   <data name="Ui_Add" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -129,8 +150,23 @@
   <data name="UI_AssignmentsListSelectable" xml:space="preserve">
     <value>Assignments list selectable</value>
   </data>
+  <data name="Ui_Assignment_CreateTitle" xml:space="preserve">
+    <value>Create assignment</value>
+  </data>
+  <data name="Ui_Assignment_RedactTitle" xml:space="preserve">
+    <value>Redact assignment</value>
+  </data>
+  <data name="Ui_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="UI_CoursesSelectable" xml:space="preserve">
     <value>Courses selectable</value>
+  </data>
+  <data name="Ui_Course_CreateTitle" xml:space="preserve">
+    <value>Create course</value>
+  </data>
+  <data name="Ui_Course_RedactTitle" xml:space="preserve">
+    <value>Redact course</value>
   </data>
   <data name="Ui_Create" xml:space="preserve">
     <value>Create</value>
@@ -138,11 +174,23 @@
   <data name="Ui_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Ui_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Ui_DueDate" xml:space="preserve">
+    <value>Due date</value>
+  </data>
   <data name="Ui_Filter" xml:space="preserve">
     <value>Filter</value>
   </data>
   <data name="Ui_Import" xml:space="preserve">
     <value>Import</value>
+  </data>
+  <data name="Ui_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Ui_Ok" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Ui_Redact" xml:space="preserve">
     <value>Redact</value>
@@ -153,7 +201,13 @@
   <data name="UI_StudentsList" xml:space="preserve">
     <value>Students list</value>
   </data>
+  <data name="Ui_TeacherFullName" xml:space="preserve">
+    <value>Teacher full name</value>
+  </data>
   <data name="UI_TeacherName" xml:space="preserve">
     <value>Teacher name</value>
+  </data>
+  <data name="Ui_Type" xml:space="preserve">
+    <value>Type</value>
   </data>
 </root>
