@@ -111,8 +111,8 @@ WHERE TeacherId = {teacherId};";
         public void SetAssignment(Assignment assignment, int courseId)
         {///Crates assignment and sets it in assignment dependencies table
             string command =
-$@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Id, Name, Date, Description, Type)
-VALUES ({assignment.Id}, {assignment.Name}, {assignment.Date}, {assignment.Description}, {assignment.Type});";
+$@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Name, Date, Description, Type)
+VALUES ('{assignment.Name}', {assignment.DateString}, '{assignment.Description}', {(int)assignment.Type});";
             AssignData(command);
 
             command =
@@ -124,8 +124,8 @@ VALUES ({courseId}, {assignment.Id});";
         public void SetCourse(Course course)
         {///Creates course
             string command =
-$@"INSERT INTO {TableNameSet.COURSES} (Id, Name, TeacherId)
-VALUES ({course.Id}, {course.Name}, {course.TeacherId});";
+$@"INSERT INTO {TableNameSet.COURSES} (Name, TeacherId)
+VALUES ({course.Name}, {course.TeacherId});";
             AssignData(command);
         }
 
@@ -152,8 +152,8 @@ WHERE CourseId = {courseId}");
         public void SetHunman(Human human)
         {///Sets human in human table
             string command = 
-$@"INSERT INTO {TableNameSet.HUMANS} (Id, FirstName, LastName, Age)
-VALUES ({human.Id}, {human.FirstName}, {human.LastName}, {human.Age});";
+$@"INSERT INTO {TableNameSet.HUMANS} (FirstName, LastName, Age)
+VALUES ({human.FirstName}, {human.LastName}, {human.Age});";
             AssignData(command);
         }
 
@@ -166,8 +166,8 @@ VALUES ({human.Id}, {human.FirstName}, {human.LastName}, {human.Age});";
             if (humanId < 0) { hId = SetHumanReturnId(student); }
             else { hId = humanId; }
             string command =
-$@"INSERT INTO {TableNameSet.STUDENTS} (Id, HumanId)
-VALUES ({student.Id}, {hId});";
+$@"INSERT INTO {TableNameSet.STUDENTS} (HumanId)
+VALUES ({hId});";
             AssignData(command);
         }
 
@@ -180,8 +180,8 @@ VALUES ({student.Id}, {hId});";
             if (humanId < 0) { hId = SetHumanReturnId(teacher); }
             else { hId = humanId; }
             string command =
-$@"INSERT INTO {TableNameSet.TEACHERS} (Id, HumanId)
-VALUES ({teacher.Id}, {hId});";
+$@"INSERT INTO {TableNameSet.TEACHERS} (HumanId)
+VALUES ({hId});";
             AssignData(command);
         }
 
