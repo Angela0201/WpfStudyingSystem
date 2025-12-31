@@ -85,6 +85,8 @@ namespace WpfStudyingSystem.Script.Other.Interfaces
                     (int)row["Points"],
                     (AssignmentTypesEnum)row["Type"]));
             }
+
+            gradeList = gradeList.OrderByDescending(n => n.AssignmentName).ToList();
         }
     }
 }
