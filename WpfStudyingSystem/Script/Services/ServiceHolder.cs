@@ -10,6 +10,8 @@ using WpfStudyingSystem.Script.DatabaseScript;
 using WpfStudyingSystem.Script.DatabaseScript.Interfaces;
 using WpfStudyingSystem.Script.DatabaseScript.Usables;
 using WpfStudyingSystem.Script.Interfaces;
+using WpfStudyingSystem.Script.Other;
+using WpfStudyingSystem.Script.Other.Interfaces;
 using WpfStudyingSystem.Script.Services.Interfaces;
 
 namespace WpfStudyingSystem.Script.Services
@@ -32,6 +34,9 @@ namespace WpfStudyingSystem.Script.Services
 
             sc.AddSingleton<IDatabaseSetter, DatabaseSetter>();
             sc.AddSingleton<IDatabaseComplexGetter, DatabaseComplexGetter>();
+
+            sc.AddSingleton<ISpecificListFilter, SpecificListFilter>();
+            sc.AddSingleton<IInformator, Informator>();
 
             services = sc.BuildServiceProvider();
         }

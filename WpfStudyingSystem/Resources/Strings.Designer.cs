@@ -70,6 +70,24 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed.
+        /// </summary>
+        public static string Crd_Failed {
+            get {
+                return ResourceManager.GetString("Crd_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pass.
+        /// </summary>
+        public static string Crd_Pass {
+            get {
+                return ResourceManager.GetString("Crd_Pass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Course name is required..
         /// </summary>
         public static string Msg_CourseNameRequired {

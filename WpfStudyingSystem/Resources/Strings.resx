@@ -120,6 +120,12 @@
   <data name="AppTitle" xml:space="preserve">
     <value>Studying system</value>
   </data>
+  <data name="Crd_Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Crd_Pass" xml:space="preserve">
+    <value>Pass</value>
+  </data>
   <data name="Msg_CourseNameRequired" xml:space="preserve">
     <value>Course name is required.</value>
   </data>

@@ -58,7 +58,7 @@ namespace WpfStudyingSystem.Script.DatabaseScript
             conn.Open();
 
             var adapter = new SqlDataAdapter($"SELECT * FROM {TableNameSet.STUDENTS}"+
-                                             $"LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.STUDENTS}.HumanId = {TableNameSet.HUMANS}.Id", conn);
+                                             $" LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.STUDENTS}.HumanId = {TableNameSet.HUMANS}.Id", conn);
             var table = new DataTable();
             adapter.Fill(table);
 
@@ -73,7 +73,7 @@ namespace WpfStudyingSystem.Script.DatabaseScript
             conn.Open();
 
             var adapter = new SqlDataAdapter($"SELECT * FROM {TableNameSet.TEACHERS}" +
-                                             $"LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.TEACHERS}.HumanId = {TableNameSet.HUMANS}.Id", conn);
+                                             $" LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.TEACHERS}.HumanId = {TableNameSet.HUMANS}.Id", conn);
             var table = new DataTable();
             adapter.Fill(table);
 
