@@ -130,6 +130,8 @@
     <Compile Include="Script\DatabaseScript\Usables\DatabaseGenerator.cs" />
     <Compile Include="Script\DatabaseScript\DatabaseSetter.cs" />
     <Compile Include="Script\DatabaseScript\Usables\Sets\TableNameSet.cs" />
+    <Compile Include="Script\Other\Interfaces\ISpecificListFilter.cs" />
+    <Compile Include="Script\Other\SpecificListFilter.cs" />
     <Compile Include="Script\Services\Interfaces\IServiceHolder.cs" />
     <Compile Include="Script\Services\ServiceHolder.cs" />
     <Compile Include="Script\ViewModels\MainViewModel.cs" />
