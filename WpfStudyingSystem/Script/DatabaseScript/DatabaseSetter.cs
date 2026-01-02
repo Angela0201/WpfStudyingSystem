@@ -100,8 +100,8 @@ $@"DELETE FROM {TableNameSet.TEACHERS} WHERE Id = {teacherId}";
 
             command =
 $@"UPDATE {TableNameSet.COURSES}
-SET TeacherId = -1
-WHERE TeacherId = {teacherId};";
+ SET TeacherId = -1
+ WHERE TeacherId = {teacherId};";
             AssignData(command);
         }
 
@@ -112,20 +112,36 @@ WHERE TeacherId = {teacherId};";
         {///Crates assignment and sets it in assignment dependencies table
             string command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Name, Date, Description, Type)
-VALUES ('{assignment.Name}', {assignment.DateString}, '{assignment.Description}', {(int)assignment.Type});";
+ VALUES ('{assignment.Name}', {assignment.DateString}, '{assignment.Description}', {(int)assignment.Type});";
             AssignData(command);
 
             command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS_DEPENDENCIES} (CourseId, AssignmentId)
-VALUES ({courseId}, {assignment.Id});";
+ VALUES ({courseId}, {assignment.Id});";
             AssignData(command);
+
+            var app = (App)Application.Current;
+            IDatabaseController ctl = app.Services.GetService<IDatabaseController>();
+            DataTable dt = ctl.ExecuteReturnCommand($@"SELECT * FROM {TableNameSet.DRAFTS} WHERE CourseId = {courseId};");
+            if (dt.Rows.Count < 1) { return; }
+
+            command =
+$@"INSERT INTO {TableNameSet.ASSIGNMENTS_STATISTICS} (StudentId, AssignmentId, Points)
+ VALUES ";
+            foreach (DataRow row in dt.Rows)
+            {
+                command += $" ({(int)row["StudentId"]}, {assignment.Id}, 0),";
+            }
+            command = command.Remove(command.Length - 1) + ";";
+            AssignData(command);
+
         }
 
         public void SetCourse(Course course)
         {///Creates course
             string command =
 $@"INSERT INTO {TableNameSet.COURSES} (Name, TeacherId)
-VALUES ('{course.Name}', {course.TeacherId});";
+ VALUES ('{course.Name}', {course.TeacherId});";
             AssignData(command);
         }
 
@@ -133,19 +149,21 @@ VALUES ('{course.Name}', {course.TeacherId});";
         {
             string command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS_STATISTICS} (StudentId, AssignmentId, Points)
-VALUES ";
+ VALUES ";
             var app = (App)Application.Current;
             IDatabaseController ctl = app.Services.GetService<IDatabaseController>();
             DataTable dt = ctl.ExecuteReturnCommand(
 $@"SELECT *
-FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}
-WHERE CourseId = {courseId}");
+ FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}
+ WHERE CourseId = {courseId}");
+
+            if (dt.Rows.Count < 1) { return; }
 
             foreach (DataRow row in dt.Rows)
             {
-                command += $"({studentId}, {(int)row["AssignmentId"]}, {0}),";
+                command += $" ({studentId}, {(int)row["AssignmentId"]}, {0}),";
             }
-            command = command.Remove(command.Length-1);
+            command = command.Remove(command.Length-1) + ";";
             AssignData(command);
         }
 
@@ -153,7 +171,7 @@ WHERE CourseId = {courseId}");
         {///Sets human in human table
             string command = 
 $@"INSERT INTO {TableNameSet.HUMANS} (FirstName, LastName, Age)
-VALUES ({human.FirstName}, {human.LastName}, 20);";
+ VALUES ('{human.FirstName}', '{human.LastName}', {human.Age});";
             AssignData(command);
         }
 
@@ -167,7 +185,7 @@ VALUES ({human.FirstName}, {human.LastName}, 20);";
             else { hId = humanId; }
             string command =
 $@"INSERT INTO {TableNameSet.STUDENTS} (HumanId)
-VALUES ({hId});";
+ VALUES ({hId});";
             AssignData(command);
         }
 
@@ -181,7 +199,7 @@ VALUES ({hId});";
             else { hId = humanId; }
             string command =
 $@"INSERT INTO {TableNameSet.TEACHERS} (HumanId)
-VALUES ({hId});";
+ VALUES ({hId});";
             AssignData(command);
         }
 
@@ -205,8 +223,8 @@ VALUES ({hId});";
             int id = getter.GetUniqueId(TableNameSet.HUMANS);
 
             string command =
-$@"INSERT INTO {TableNameSet.HUMANS} (Id, FirstName, LastName, Age
-VALUES ({id}, {human.FirstName}, {human.LastName}, {human.Age});";
+$@"INSERT INTO {TableNameSet.HUMANS} ( FirstName, LastName, Age)
+ VALUES ('{human.FirstName}', '{human.LastName}', {human.Age});";
             AssignData(command);
             return id;
         }
@@ -217,8 +235,8 @@ VALUES ({id}, {human.FirstName}, {human.LastName}, {human.Age});";
         {///changes the student grade
             string command =
 $@"UPDATE {TableNameSet.ASSIGNMENTS_STATISTICS}
-SET Points = {points}
-WHERE StudentId = {studentId} AND AssignmentId = {assignmentId};";
+ SET Points = {points}
+ WHERE StudentId = {studentId} AND AssignmentId = {assignmentId};";
             AssignData(command);
         }
 
@@ -226,10 +244,11 @@ WHERE StudentId = {studentId} AND AssignmentId = {assignmentId};";
 
         public void AssignStudentToCourse(int studentId, int courseId)
         {
+            MessageBox.Show(courseId.ToString());
             ///Adds student to a course in draft datatable and connects it to the assignments
             string command =
 $@"INSERT INTO {TableNameSet.DRAFTS} (StudentId, CourseId)
-VALUES ({studentId}, {courseId});";
+ VALUES ({studentId}, {courseId});";
             AssignData(command);
 
             SetToAssignmentsStatistics(studentId, courseId);
@@ -239,8 +258,8 @@ VALUES ({studentId}, {courseId});";
         {///sets new teacher id to course
             string command =
 $@"UPDATE {TableNameSet.COURSES}
-SET TeacherId = {teacherId}
-WHERE Id = {courseId};";
+ SET TeacherId = {teacherId}
+ WHERE Id = {courseId};";
             AssignData(command);
         }
 
@@ -250,8 +269,8 @@ WHERE Id = {courseId};";
 
             string command =
 $@"UPDATE {TableNameSet.COURSES}
-SET Name = '{safeName}'
-WHERE Id = {courseId};";
+ SET Name = '{safeName}'
+ WHERE Id = {courseId};";
 
             AssignData(command);
         }
@@ -269,8 +288,8 @@ $@"DELETE FROM {TableNameSet.ASSIGNMENTS_STATISTICS} WHERE StudentId = {studentI
             IDatabaseController ctl = app.Services.GetService<IDatabaseController>();
             DataTable dt = ctl.ExecuteReturnCommand(
 $@"SELECT *
-FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}
-WHERE CourseId = {courseId}");
+ FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}
+ WHERE CourseId = {courseId}");
 
             foreach (DataRow row in dt.Rows)
             {
@@ -284,8 +303,8 @@ WHERE CourseId = {courseId}");
         {///replace teacher id in course with -1 in databse
             string command =
 $@"UPDATE {TableNameSet.COURSES}
-SET TeacherId = -1
-WHERE Id = {courseId} AND TeacherId = {teacherId};";
+ SET TeacherId = -1
+ WHERE Id = {courseId} AND TeacherId = {teacherId};";
             AssignData(command);
         }
     }

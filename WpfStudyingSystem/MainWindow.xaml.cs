@@ -389,8 +389,9 @@ namespace WpfStudyingSystem
 
             TeacherNameText.Text = GetTeacherFullName(course.TeacherId);
 
-            vm.LoadAssignments(course.Id);
+            //vm.LoadAssignments(course.Id);
             vm.LoadCourseStudents(course.Id);
+            vm.LoadAssignments(course.Id);
             StudentInfoText.Text = "";
         }
 
@@ -485,26 +486,35 @@ namespace WpfStudyingSystem
                 return;
             }
 
-            string safeFirst = first.Replace("'", "''");
-            string safeLast = last.Replace("'", "''");
+            //
+            IDatabaseSetter setter =  app.Services.GetService<IDatabaseSetter>();
+            IBuildDirector director = app.Services.GetService<IBuildDirector>();
 
-            DataTable hid = controller.ExecuteReturnCommand(
-        $@"INSERT INTO {TableNameSet.HUMANS} (FirstName, LastName, Age)
-        VALUES ('{safeFirst}', '{safeLast}', {age});
-        SELECT CAST(SCOPE_IDENTITY() AS INT) AS NewId;");
+            Human nStudent = director.BuildHuman(new StudentBuilder(), first, last, age);
+            setter.SetStudent(nStudent);
+            
+            setter.AssignStudentToCourse(nStudent.Id, currentStudentsCourseId);
 
-            int humanId = Convert.ToInt32(hid.Rows[0]["NewId"]);
+            //string safeFirst = first.Replace("'", "''");
+            //string safeLast = last.Replace("'", "''");
 
-            DataTable sid = controller.ExecuteReturnCommand(
-        $@"INSERT INTO {TableNameSet.STUDENTS} (HumanId)
-        VALUES ({humanId});
-        SELECT CAST(SCOPE_IDENTITY() AS INT) AS NewId;");
+            //DataTable hid = controller.ExecuteReturnCommand(
+            // $@"INSERT INTO {TableNameSet.HUMANS} (FirstName, LastName, Age)
+            // VALUES ('{safeFirst}', '{safeLast}', {age});
+            // SELECT CAST(SCOPE_IDENTITY() AS INT) AS NewId;");
 
-            int studentId = Convert.ToInt32(sid.Rows[0]["NewId"]);
+            //   int humanId = Convert.ToInt32(hid.Rows[0]["NewId"]);
 
-            controller.ExecuteCommand(
-        $@"INSERT INTO {TableNameSet.DRAFTS} (StudentId, CourseId)
-        VALUES ({studentId}, {currentStudentsCourseId});");
+            //    DataTable sid = controller.ExecuteReturnCommand(
+            // $@"INSERT INTO {TableNameSet.STUDENTS} (HumanId)
+            //  VALUES ({humanId});
+            // SELECT CAST(SCOPE_IDENTITY() AS INT) AS NewId;");
+
+            //    int studentId = Convert.ToInt32(sid.Rows[0]["NewId"]);
+
+            //    controller.ExecuteCommand(
+            // $@"INSERT INTO {TableNameSet.DRAFTS} (StudentId, CourseId)
+            //VALUES ({studentId}, {currentStudentsCourseId});");
 
             StudentDialogOverlay.Visibility = Visibility.Collapsed;
 

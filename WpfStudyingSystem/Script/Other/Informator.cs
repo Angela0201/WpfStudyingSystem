@@ -64,13 +64,13 @@ namespace WpfStudyingSystem.Script.Other.Interfaces
             IDatabaseController dtc = app.Services.GetService<IDatabaseController>();
 
             string cmd = 
-                $"SELECT {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.AssignmentId, {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.CourseId, {TableNameSet.ASSIGNMENTS}.Name AS AssignmentName, {TableNameSet.ASSIGNMENTS}.Type AS Type, {TableNameSet.ASSIGNMENTS_STATISTICS}.Points AS Points, {TableNameSet.ASSIGNMENTS_STATISTICS}.StudentId AS StudentId, {TableNameSet.HUMANS}.FirstName AS FirstName, {TableNameSet.HUMANS}.LastName AS LastName" +
+                $"SELECT {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.AssignmentId AS AssignmentId, {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.CourseId AS CourseId, {TableNameSet.ASSIGNMENTS}.Name AS AssignmentName, {TableNameSet.ASSIGNMENTS}.Type AS Type, {TableNameSet.ASSIGNMENTS_STATISTICS}.Points AS Points, {TableNameSet.ASSIGNMENTS_STATISTICS}.StudentId AS StudentId, {TableNameSet.HUMANS}.FirstName AS FirstName, {TableNameSet.HUMANS}.LastName AS LastName" +
                 $" FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}" +
                 $" LEFT JOIN {TableNameSet.ASSIGNMENTS_STATISTICS} ON {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.AssignmentId = {TableNameSet.ASSIGNMENTS_STATISTICS}.AssignmentId" +
                 $" LEFT JOIN {TableNameSet.ASSIGNMENTS} ON {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.AssignmentId = {TableNameSet.ASSIGNMENTS}.Id" +
                 $" LEFT JOIN {TableNameSet.STUDENTS} ON {TableNameSet.ASSIGNMENTS_STATISTICS}.StudentId = {TableNameSet.STUDENTS}.Id" +
                 $" LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.STUDENTS}.HumanId = {TableNameSet.HUMANS}.Id" +
-                $" WHERE {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.CourseId = {courseId}";
+                $" WHERE {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.CourseId = {courseId};";
 
             DataTable table = dtc.ExecuteReturnCommand(cmd);
             gradeList = new List<StudentGradeInfo>();
