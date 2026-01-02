@@ -125,7 +125,7 @@ VALUES ({courseId}, {assignment.Id});";
         {///Creates course
             string command =
 $@"INSERT INTO {TableNameSet.COURSES} (Name, TeacherId)
-VALUES ({course.Name}, {course.TeacherId});";
+VALUES ('{course.Name}', {course.TeacherId});";
             AssignData(command);
         }
 
@@ -153,7 +153,7 @@ WHERE CourseId = {courseId}");
         {///Sets human in human table
             string command = 
 $@"INSERT INTO {TableNameSet.HUMANS} (FirstName, LastName, Age)
-VALUES ({human.FirstName}, {human.LastName}, {human.Age});";
+VALUES ({human.FirstName}, {human.LastName}, 20);";
             AssignData(command);
         }
 
@@ -241,6 +241,18 @@ VALUES ({studentId}, {courseId});";
 $@"UPDATE {TableNameSet.COURSES}
 SET TeacherId = {teacherId}
 WHERE Id = {courseId};";
+            AssignData(command);
+        }
+
+        public void UpdateCourseName(int courseId, string newName)
+        {
+            string safeName = (newName ?? "").Replace("'", "''");
+
+            string command =
+$@"UPDATE {TableNameSet.COURSES}
+SET Name = '{safeName}'
+WHERE Id = {courseId};";
+
             AssignData(command);
         }
 

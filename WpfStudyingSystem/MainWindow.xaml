@@ -56,23 +56,31 @@
             <GroupBox Grid.Row="1"
                       Header="{x:Static res:Strings.UI_StudentsList}"
                       Margin="0,0,0,8">
-                <ListBox x:Name="StudentsList"/>
+                <ListBox x:Name="StudentsList"
+                         ItemsSource="{Binding CourseStudents}"
+                         DisplayMemberPath="FullName"
+                         SelectionChanged="StudentsList_SelectionChanged"/>
             </GroupBox>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,8">
-                <Button Content="{x:Static res:Strings.Ui_Add}" Margin="0,0,5,0"/>
-                <Button Content="{x:Static res:Strings.Ui_Delete}"/>
+                <Button Content="{x:Static res:Strings.Ui_Add}" Margin="0,0,5,0" Click="StudentsAdd_Click"/>
+                <Button Content="{x:Static res:Strings.Ui_Delete}" Click="StudentsDelete_Click"/>
             </StackPanel>
 
-            <Button Grid.Row="3"
+            <Button x:Name="FilterButton"
+                    Grid.Row="3"
                     Content="{x:Static res:Strings.Ui_Filter}"
                     Margin="0,0,0,8"
-                    Height="28"/>
+                    Height="28"
+                    Click="Filter_Click"/>
 
             <GroupBox Grid.Row="4"
                       Header="{x:Static res:Strings.UI_AssignmentsListSelectable}"
                       Margin="0,0,0,8">
-                <ListBox x:Name="AssignmentsList"/>
+                <ListBox x:Name="AssignmentsList"
+                         SelectionChanged="AssignmentsList_SelectionChanged"
+                         ItemsSource="{Binding Assignments}"
+                         DisplayMemberPath="Name"/>
             </GroupBox>
 
             <StackPanel Grid.Row="5" Orientation="Horizontal">
@@ -86,6 +94,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
@@ -101,7 +111,19 @@
                 <TextBlock x:Name="AssignmentInfoText" Margin="6,4" TextWrapping="Wrap"/>
             </GroupBox>
 
-            <Button Grid.Row="2"
+            <GroupBox Grid.Row="2"
+                      Header="{x:Static res:Strings.UI_GradesList}"
+                      Margin="0,0,0,8">
+                <ListBox x:Name="GradesList"/>
+            </GroupBox>
+
+            <Button Grid.Row="3"
+                    Content="{x:Static res:Strings.Ui_SetPoints}"
+                    Height="28"
+                    Margin="0,0,0,8"
+                    Click="GradesSetPoints_Click"/>
+
+            <Button Grid.Row="4"
                     Content="{x:Static res:Strings.Ui_Import}"
                     Height="28"
                     HorizontalAlignment="Stretch"/>
@@ -224,6 +246,117 @@
                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="{x:Static res:Strings.Ui_Ok}" Width="90" Margin="0,0,8,0" Click="CourseDialogOk_Click"/>
                         <Button Content="{x:Static res:Strings.Ui_Cancel}" Width="90" Click="CourseDialogCancel_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+        
+        <Border x:Name="StudentDialogOverlay"
+        Grid.ColumnSpan="3"
+        Background="#66000000"
+        Visibility="Collapsed">
+
+            <Border Background="White"
+            BorderBrush="#FFB0B0B0"
+            BorderThickness="1"
+            Padding="12"
+            Width="420"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="StudentDialogTitle"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,10"/>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{x:Static res:Strings.Ui_FirstName}"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="StudentFirstNameBox" Margin="8,0,0,6"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="{x:Static res:Strings.Ui_LastName}"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="StudentLastNameBox" Margin="8,0,0,6"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="{x:Static res:Strings.Ui_Age}"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="StudentAgeBox" Margin="8,0,0,0"/>
+                    </Grid>
+
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="{x:Static res:Strings.Ui_Ok}" Width="90" Margin="0,0,8,0" Click="StudentDialogOk_Click"/>
+                        <Button Content="{x:Static res:Strings.Ui_Cancel}" Width="90" Click="StudentDialogCancel_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+
+        <Border x:Name="GradeDialogOverlay"
+        Grid.ColumnSpan="3"
+        Background="#66000000"
+        Visibility="Collapsed">
+
+            <Border Background="White"
+            BorderBrush="#FFB0B0B0"
+            BorderThickness="1"
+            Padding="12"
+            Width="420"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="GradeDialogTitle"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,10"/>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="{x:Static res:Strings.Ui_Points}"/>
+                        <TextBox Grid.Column="1"
+                         x:Name="GradePointsBox"
+                         Margin="8,0,0,0"/>
+                    </Grid>
+
+                    <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Button Content="{x:Static res:Strings.Ui_Ok}"
+                        Width="90"
+                        Margin="0,0,8,0"
+                        Click="GradeDialogOk_Click"/>
+                        <Button Content="{x:Static res:Strings.Ui_Cancel}"
+                        Width="90"
+                        Click="GradeDialogCancel_Click"/>
                     </StackPanel>
                 </Grid>
             </Border>
