@@ -20,6 +20,7 @@ namespace WpfStudyingSystem.Script.Classes.BaseEntities
         public int Id => id;
         public string Name => name;
         public DateTime Date => date;
+        public string DateString => date.ToString("MM-dd-yyyy");
         public string Description => description;
         public AssignmentTypesEnum Type => type;
 

@@ -120,8 +120,83 @@
   <data name="AppTitle" xml:space="preserve">
     <value>Studying system</value>
   </data>
+  <data name="Crd_Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Crd_Pass" xml:space="preserve">
+    <value>Pass</value>
+  </data>
+  <data name="Msg_AgeInvalid" xml:space="preserve">
+    <value>Age must be a positive number.</value>
+  </data>
+  <data name="Msg_CourseNameRequired" xml:space="preserve">
+    <value>Course name is required.</value>
+  </data>
+  <data name="Msg_CreditPoints01" xml:space="preserve">
+    <value>For Credit type points must be 0 or 1</value>
+  </data>
+  <data name="Msg_EnterStudentAge" xml:space="preserve">
+    <value>Enter student's age:</value>
+  </data>
+  <data name="Msg_EnterStudentFirstName" xml:space="preserve">
+    <value>Enter student's first name:</value>
+  </data>
+  <data name="Msg_EnterStudentLastName" xml:space="preserve">
+    <value>Enter student's last name:</value>
+  </data>
+  <data name="Msg_FirstNameRequired" xml:space="preserve">
+    <value>First name is required.</value>
+  </data>
+  <data name="Msg_LastNameRequired" xml:space="preserve">
+    <value>Last name is required.</value>
+  </data>
+  <data name="Msg_NameRequired" xml:space="preserve">
+    <value>Name is required.</value>
+  </data>
+  <data name="Msg_NoGrades" xml:space="preserve">
+    <value>No grade data for this course yet.</value>
+  </data>
+  <data name="Msg_NoStudentsToAdd" xml:space="preserve">
+    <value>No available students to add.</value>
+  </data>
+  <data name="Msg_PointsInvalid" xml:space="preserve">
+    <value>Points must be a number.</value>
+  </data>
+  <data name="Msg_PointsRange0_100" xml:space="preserve">
+    <value>Points must be between 0 and 100.</value>
+  </data>
+  <data name="Msg_SaveFailed" xml:space="preserve">
+    <value>Save failed.</value>
+  </data>
+  <data name="Msg_SelectAssignmentFirst" xml:space="preserve">
+    <value>Select an assignment first.</value>
+  </data>
+  <data name="Msg_SelectCourseFirst" xml:space="preserve">
+    <value>Select a course first.</value>
+  </data>
+  <data name="Msg_SelectGradeFirst" xml:space="preserve">
+    <value>Select a grade row first.</value>
+  </data>
+  <data name="Msg_SelectStudentFirst" xml:space="preserve">
+    <value>Select a student first.</value>
+  </data>
+  <data name="Msg_ServicesNotAvailable" xml:space="preserve">
+    <value>Services are not available.</value>
+  </data>
+  <data name="Msg_TeacherNameFormat" xml:space="preserve">
+    <value>Enter teacher full name</value>
+  </data>
+  <data name="Msg_TeacherNameRequired" xml:space="preserve">
+    <value>Teacher name is required.</value>
+  </data>
   <data name="Ui_Add" xml:space="preserve">
     <value>Add</value>
+  </data>
+  <data name="Ui_AddStudentTitle" xml:space="preserve">
+    <value>Add student</value>
+  </data>
+  <data name="Ui_Age" xml:space="preserve">
+    <value>Age</value>
   </data>
   <data name="Ui_AssignmentInfo" xml:space="preserve">
     <value>Assignment info</value>
@@ -129,8 +204,23 @@
   <data name="UI_AssignmentsListSelectable" xml:space="preserve">
     <value>Assignments list selectable</value>
   </data>
+  <data name="Ui_Assignment_CreateTitle" xml:space="preserve">
+    <value>Create assignment</value>
+  </data>
+  <data name="Ui_Assignment_RedactTitle" xml:space="preserve">
+    <value>Redact assignment</value>
+  </data>
+  <data name="Ui_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="UI_CoursesSelectable" xml:space="preserve">
     <value>Courses selectable</value>
+  </data>
+  <data name="Ui_Course_CreateTitle" xml:space="preserve">
+    <value>Create course</value>
+  </data>
+  <data name="Ui_Course_RedactTitle" xml:space="preserve">
+    <value>Redact course</value>
   </data>
   <data name="Ui_Create" xml:space="preserve">
     <value>Create</value>
@@ -138,14 +228,65 @@
   <data name="Ui_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Ui_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Ui_DescriptionLabel" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="Ui_DueDate" xml:space="preserve">
+    <value>Due date</value>
+  </data>
+  <data name="Ui_DueDateLabel" xml:space="preserve">
+    <value>Due date:</value>
+  </data>
   <data name="Ui_Filter" xml:space="preserve">
     <value>Filter</value>
+  </data>
+  <data name="UI_Filter_All" xml:space="preserve">
+    <value>Filter: All</value>
+  </data>
+  <data name="UI_Filter_Credit" xml:space="preserve">
+    <value>Filter: Credit</value>
+  </data>
+  <data name="UI_Filter_Eap" xml:space="preserve">
+    <value>Filter: EAP</value>
+  </data>
+  <data name="UI_Filter_Grade" xml:space="preserve">
+    <value>Filter: Grade</value>
+  </data>
+  <data name="Ui_FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="UI_Grades" xml:space="preserve">
+    <value>Grades</value>
+  </data>
+  <data name="UI_GradesList" xml:space="preserve">
+    <value>Grades / Results</value>
+  </data>
+  <data name="Ui_Grade_SetTitle" xml:space="preserve">
+    <value>Set student points</value>
   </data>
   <data name="Ui_Import" xml:space="preserve">
     <value>Import</value>
   </data>
+  <data name="Ui_LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Ui_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Ui_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Ui_Points" xml:space="preserve">
+    <value>Points</value>
+  </data>
   <data name="Ui_Redact" xml:space="preserve">
     <value>Redact</value>
+  </data>
+  <data name="Ui_SetPoints" xml:space="preserve">
+    <value>Set points</value>
   </data>
   <data name="Ui_StudentInfo" xml:space="preserve">
     <value>Student info</value>
@@ -153,7 +294,19 @@
   <data name="UI_StudentsList" xml:space="preserve">
     <value>Students list</value>
   </data>
+  <data name="Ui_Student_CreateTitle" xml:space="preserve">
+    <value>Create student</value>
+  </data>
+  <data name="Ui_TeacherFullName" xml:space="preserve">
+    <value>Teacher full name</value>
+  </data>
   <data name="UI_TeacherName" xml:space="preserve">
     <value>Teacher name</value>
+  </data>
+  <data name="Ui_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Ui_TypeLabel" xml:space="preserve">
+    <value>Type:</value>
   </data>
 </root>
