@@ -77,7 +77,7 @@ namespace WpfStudyingSystem.Script.Other.Interfaces
 
             foreach (DataRow row in table.Rows)
             {
-                //MessageBox.Show($"StudentId - {row["StudentId"]}\nAssignmentId - {row["AssignmentId"]}\nFirstName - {row["FirstName"]}\nLastName - {row["LastName"]}\nAssignmentName - {row["AssignmentName"]}\nPoints - {row["Points"]}\nType - {row["Type"]}");
+                MessageBox.Show($"StudentId - {row["StudentId"]}\nAssignmentId - {row["AssignmentId"]}\nFirstName - {row["FirstName"]}\nLastName - {row["LastName"]}\nAssignmentName - {row["AssignmentName"]}\nPoints - {row["Points"]}\nType - {row["Type"]}");
                 gradeList.Add(new StudentGradeInfo(
                 (int)row["StudentId"],
                 (int)row["AssignmentId"],

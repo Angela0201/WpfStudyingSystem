@@ -110,6 +110,7 @@ $@"UPDATE {TableNameSet.COURSES}
 
         public void SetAssignment(Assignment assignment, int courseId)
         {///Crates assignment and sets it in assignment dependencies table
+            MessageBox.Show("AAAAAAAAAAAAAAAAAAA");
             string command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Name, Date, Description, Type)
  VALUES ('{assignment.Name}', {assignment.DateString}, '{assignment.Description}', {(int)assignment.Type});";
@@ -128,10 +129,12 @@ $@"INSERT INTO {TableNameSet.ASSIGNMENTS_DEPENDENCIES} (CourseId, AssignmentId)
             command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS_STATISTICS} (StudentId, AssignmentId, Points)
  VALUES ";
+            if (dt.Rows.Count < 1) { return; }
             foreach (DataRow row in dt.Rows)
             {
                 command += $" ({(int)row["StudentId"]}, {assignment.Id}, 0),";
             }
+            MessageBox.Show(command);
             command = command.Remove(command.Length - 1) + ";";
             AssignData(command);
 
@@ -244,7 +247,6 @@ $@"UPDATE {TableNameSet.ASSIGNMENTS_STATISTICS}
 
         public void AssignStudentToCourse(int studentId, int courseId)
         {
-            MessageBox.Show(courseId.ToString());
             ///Adds student to a course in draft datatable and connects it to the assignments
             string command =
 $@"INSERT INTO {TableNameSet.DRAFTS} (StudentId, CourseId)
@@ -290,12 +292,14 @@ $@"DELETE FROM {TableNameSet.ASSIGNMENTS_STATISTICS} WHERE StudentId = {studentI
 $@"SELECT *
  FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}
  WHERE CourseId = {courseId}");
+            if (dt.Rows.Count < 1) { return; }
 
             foreach (DataRow row in dt.Rows)
             {
                 command += $" AssignmentId = {(int)row["AssignmentId"]} OR";
             }
             command = command.Remove(command.Length - 2) + ")";
+            //MessageBox.Show(command);
             AssignData(command);
         }
 
