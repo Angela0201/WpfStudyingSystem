@@ -126,7 +126,8 @@
             <Button Grid.Row="4"
                     Content="{x:Static res:Strings.Ui_Import}"
                     Height="28"
-                    HorizontalAlignment="Stretch"/>
+                    HorizontalAlignment="Stretch"
+                    Click="Import_Click"/>
         </Grid>
         
         <Border x:Name="AssignmentDialogOverlay"

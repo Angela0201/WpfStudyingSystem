@@ -24,6 +24,9 @@ using WpfStudyingSystem.Script.DatabaseScript.Interfaces;
 using WpfStudyingSystem.Script.DatabaseScript.Usables;
 using WpfStudyingSystem.Script.Interfaces;
 using WpfStudyingSystem.Script.ViewModels;
+using System.IO;
+using WpfStudyingSystem.Script.Importing;
+using Microsoft.Win32;
 
 namespace WpfStudyingSystem
 {
@@ -128,8 +131,6 @@ namespace WpfStudyingSystem
 
             setter.RemoveCourse(course.Id);
 
-            var removedId = course.Id;
-
             vm.Courses.Remove(course);
 
             TeacherNameText.Text = "";
@@ -152,20 +153,14 @@ namespace WpfStudyingSystem
             }
 
             var app = (App)Application.Current;
-            var controller = app.Services.GetService<IDatabaseController>();
-            if (controller == null)
+            var setter = app.Services.GetService<IDatabaseSetter>();
+            if (setter == null)
             {
                 MessageBox.Show(Strings.Msg_ServicesNotAvailable);
                 return;
             }
 
-            controller.ExecuteCommand(
-        $@"DELETE FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}
-        WHERE CourseId = {course.Id} AND AssignmentId = {assignment.Id};");
-
-            controller.ExecuteCommand(
-        $@"DELETE FROM {TableNameSet.ASSIGNMENTS}
-        WHERE Id = {assignment.Id};");
+            setter.RemoveAssignment(assignment.Id);
 
             var vm = DataContext as MainViewModel;
             if (vm != null) vm.LoadAssignments(course.Id);
@@ -332,10 +327,15 @@ namespace WpfStudyingSystem
 
             if (courseRedactMode && currentCourse != null)
             {
-                controller.ExecuteCommand(
-        $@"UPDATE {TableNameSet.COURSES}
-        SET Name = '{safeName}', TeacherId = {teacherId}
-        WHERE Id = {currentCourse.Id};");
+                var setter = app.Services.GetService<IDatabaseSetter>();
+                if (setter == null)
+                {
+                    MessageBox.Show(Strings.Msg_ServicesNotAvailable);
+                    return;
+                }
+
+                setter.UpdateCourseName(currentCourse.Id, name);
+                setter.AssignTeacherToCourse(teacherId, currentCourse.Id);
 
                 vm.Courses.Clear();
 
@@ -479,20 +479,17 @@ namespace WpfStudyingSystem
             }
 
             var app = (App)Application.Current;
-            var controller = app.Services.GetService<IDatabaseController>();
-            if (controller == null)
+            var setter = app.Services.GetService<IDatabaseSetter>();
+            var director = app.Services.GetService<IBuildDirector>();
+
+            if (setter == null || director == null)
             {
                 MessageBox.Show(Strings.Msg_ServicesNotAvailable);
                 return;
             }
 
-            //
-            IDatabaseSetter setter =  app.Services.GetService<IDatabaseSetter>();
-            IBuildDirector director = app.Services.GetService<IBuildDirector>();
-
             Human nStudent = director.BuildHuman(new StudentBuilder(), first, last, age);
             setter.SetStudent(nStudent);
-            
             setter.AssignStudentToCourse(nStudent.Id, currentStudentsCourseId);
 
             //string safeFirst = first.Replace("'", "''");
@@ -539,16 +536,14 @@ namespace WpfStudyingSystem
             }
 
             var app = (App)Application.Current;
-            var controller = app.Services.GetService<IDatabaseController>();
-            if (controller == null)
+            var setter = app.Services.GetService<IDatabaseSetter>();
+            if (setter == null)
             {
                 MessageBox.Show(Strings.Msg_ServicesNotAvailable);
                 return;
             }
 
-            controller.ExecuteCommand(
-        $@"DELETE FROM {TableNameSet.DRAFTS}
-        WHERE StudentId = {student.Id} AND CourseId = {course.Id};");
+            setter.RemoveStudentFromCourse(student.Id, course.Id);
 
             var vm = DataContext as MainViewModel;
             if (vm != null) vm.LoadCourseStudents(course.Id);
@@ -789,6 +784,198 @@ namespace WpfStudyingSystem
             }
 
             GradesList.ItemsSource = list;
+        }
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+            var app = (App)Application.Current;
+            var controller = app.Services.GetService<IDatabaseController>();
+            if (controller == null)
+            {
+                MessageBox.Show(Strings.Msg_ServicesNotAvailable);
+                return;
+            }
+
+            var data = BuildImportData(controller);
+            var csv = BuildCsv(data);
+
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "CSV files (*.csv)|*.csv";
+            dialog.FileName = "study_system_export.csv";
+
+            bool? result = dialog.ShowDialog();
+            if (result == true)
+            {
+                File.WriteAllText(dialog.FileName, csv, Encoding.UTF8);
+                MessageBox.Show(Strings.Ui_Ok);
+            }
+        }
+
+        private StudySystemImportData BuildImportData(IDatabaseController controller)
+        {
+            var data = new StudySystemImportData();
+
+            var courses = controller.ExecuteReturnCommand($"SELECT Id, Name, TeacherId FROM {TableNameSet.COURSES};");
+            foreach (DataRow row in courses.Rows)
+            {
+                data.Courses.Add(new CourseRow
+                {
+                    Id = row["Id"] == DBNull.Value ? -1 : Convert.ToInt32(row["Id"]),
+                    Name = row["Name"] == DBNull.Value ? "" : row["Name"].ToString(),
+                    TeacherId = row["TeacherId"] == DBNull.Value ? -1 : Convert.ToInt32(row["TeacherId"])
+                });
+            }
+
+            var teachers = controller.ExecuteReturnCommand(
+                $"SELECT t.Id AS Id, t.HumanId AS HumanId, h.FirstName AS FirstName, h.LastName AS LastName, h.Age AS Age " +
+                $"FROM {TableNameSet.TEACHERS} t " +
+                $"LEFT JOIN {TableNameSet.HUMANS} h ON t.HumanId = h.Id;"
+            );
+            foreach (DataRow row in teachers.Rows)
+            {
+                data.Teachers.Add(new TeacherRow
+                {
+                    Id = row["Id"] == DBNull.Value ? -1 : Convert.ToInt32(row["Id"]),
+                    HumanId = row["HumanId"] == DBNull.Value ? -1 : Convert.ToInt32(row["HumanId"]),
+                    FirstName = row["FirstName"] == DBNull.Value ? "" : row["FirstName"].ToString(),
+                    LastName = row["LastName"] == DBNull.Value ? "" : row["LastName"].ToString(),
+                    Age = row["Age"] == DBNull.Value ? 0 : Convert.ToInt32(row["Age"])
+                });
+            }
+
+            var students = controller.ExecuteReturnCommand(
+                $"SELECT s.Id AS Id, s.HumanId AS HumanId, h.FirstName AS FirstName, h.LastName AS LastName, h.Age AS Age " +
+                $"FROM {TableNameSet.STUDENTS} s " +
+                $"LEFT JOIN {TableNameSet.HUMANS} h ON s.HumanId = h.Id;"
+            );
+            foreach (DataRow row in students.Rows)
+            {
+                data.Students.Add(new StudentRow
+                {
+                    Id = row["Id"] == DBNull.Value ? -1 : Convert.ToInt32(row["Id"]),
+                    HumanId = row["HumanId"] == DBNull.Value ? -1 : Convert.ToInt32(row["HumanId"]),
+                    FirstName = row["FirstName"] == DBNull.Value ? "" : row["FirstName"].ToString(),
+                    LastName = row["LastName"] == DBNull.Value ? "" : row["LastName"].ToString(),
+                    Age = row["Age"] == DBNull.Value ? 0 : Convert.ToInt32(row["Age"])
+                });
+            }
+
+            var drafts = controller.ExecuteReturnCommand($"SELECT StudentId, CourseId FROM {TableNameSet.DRAFTS};");
+            foreach (DataRow row in drafts.Rows)
+            {
+                data.Drafts.Add(new DraftRow
+                {
+                    StudentId = row["StudentId"] == DBNull.Value ? -1 : Convert.ToInt32(row["StudentId"]),
+                    CourseId = row["CourseId"] == DBNull.Value ? -1 : Convert.ToInt32(row["CourseId"])
+                });
+            }
+
+            var assignments = controller.ExecuteReturnCommand($"SELECT Id, Name, Date, Description, Type FROM {TableNameSet.ASSIGNMENTS};");
+            foreach (DataRow row in assignments.Rows)
+            {
+                data.Assignments.Add(new AssignmentRow
+                {
+                    Id = row["Id"] == DBNull.Value ? -1 : Convert.ToInt32(row["Id"]),
+                    Name = row["Name"] == DBNull.Value ? "" : row["Name"].ToString(),
+                    Date = row["Date"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["Date"]),
+                    Description = row["Description"] == DBNull.Value ? "" : row["Description"].ToString(),
+                    Type = row["Type"] == DBNull.Value ? 0 : Convert.ToInt32(row["Type"])
+                });
+            }
+
+            var deps = controller.ExecuteReturnCommand($"SELECT CourseId, AssignmentId FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES};");
+            foreach (DataRow row in deps.Rows)
+            {
+                data.AssignmentDependencies.Add(new AssignmentDependencyRow
+                {
+                    CourseId = row["CourseId"] == DBNull.Value ? -1 : Convert.ToInt32(row["CourseId"]),
+                    AssignmentId = row["AssignmentId"] == DBNull.Value ? -1 : Convert.ToInt32(row["AssignmentId"])
+                });
+            }
+
+            var stats = controller.ExecuteReturnCommand($"SELECT StudentId, AssignmentId, Points FROM {TableNameSet.ASSIGNMENTS_STATISTICS};");
+            foreach (DataRow row in stats.Rows)
+            {
+                data.AssignmentStatistics.Add(new AssignmentStatisticsRow
+                {
+                    StudentId = row["StudentId"] == DBNull.Value ? -1 : Convert.ToInt32(row["StudentId"]),
+                    AssignmentId = row["AssignmentId"] == DBNull.Value ? -1 : Convert.ToInt32(row["AssignmentId"]),
+                    Points = row["Points"] == DBNull.Value ? 0 : Convert.ToInt32(row["Points"])
+                });
+            }
+
+            return data;
+        }
+
+        private string BuildCsv(StudySystemImportData data)
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($"CreatedAt;{Escape(data.CreatedAt.ToString("dd.MM.yyyy"))}");
+            sb.AppendLine();
+
+            sb.AppendLine("[Courses]");
+            sb.AppendLine("Id;Name;TeacherId");
+            foreach (var c in data.Courses)
+            {
+                sb.AppendLine($"{c.Id};{Escape(c.Name)};{c.TeacherId}");
+            }
+            sb.AppendLine();
+
+            sb.AppendLine("[Teachers]");
+            sb.AppendLine("Id;HumanId;FirstName;LastName;Age");
+            foreach (var t in data.Teachers)
+            {
+                sb.AppendLine($"{t.Id};{t.HumanId};{Escape(t.FirstName)};{Escape(t.LastName)};{t.Age}");
+            }
+            sb.AppendLine();
+
+            sb.AppendLine("[Students]");
+            sb.AppendLine("Id;HumanId;FirstName;LastName;Age");
+            foreach (var s in data.Students)
+            {
+                sb.AppendLine($"{s.Id};{s.HumanId};{Escape(s.FirstName)};{Escape(s.LastName)};{s.Age}");
+            }
+            sb.AppendLine();
+
+            sb.AppendLine("[Drafts]");
+            sb.AppendLine("StudentId;CourseId");
+            foreach (var d in data.Drafts)
+            {
+                sb.AppendLine($"{d.StudentId};{d.CourseId}");
+            }
+            sb.AppendLine();
+
+            sb.AppendLine("[Assignments]");
+            sb.AppendLine("Id;Name;Date;Description;Type");
+            foreach (var a in data.Assignments)
+            {
+                sb.AppendLine($"{a.Id};{Escape(a.Name)};{Escape(a.Date.ToString("dd.MM.yyyy"))};{Escape(a.Description)};{a.Type}");
+            }
+            sb.AppendLine();
+
+            sb.AppendLine("[AssignmentsDependencies]");
+            sb.AppendLine("CourseId;AssignmentId");
+            foreach (var d in data.AssignmentDependencies)
+            {
+                sb.AppendLine($"{d.CourseId};{d.AssignmentId}");
+            }
+            sb.AppendLine();
+
+            sb.AppendLine("[AssignmentsStatistics]");
+            sb.AppendLine("StudentId;AssignmentId;Points");
+            foreach (var st in data.AssignmentStatistics)
+            {
+                sb.AppendLine($"{st.StudentId};{st.AssignmentId};{st.Points}");
+            }
+
+            return sb.ToString();
+        }
+
+        private string Escape(string value)
+        {
+            if (value == null) return "";
+            var v = value.Replace("\r", " ").Replace("\n", " ").Replace(";", ",");
+            return v;
         }
     }
 }
