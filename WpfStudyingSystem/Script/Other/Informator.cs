@@ -74,19 +74,22 @@ namespace WpfStudyingSystem.Script.Other.Interfaces
 
             DataTable table = dtc.ExecuteReturnCommand(cmd);
             gradeList = new List<StudentGradeInfo>();
+
             foreach (DataRow row in table.Rows)
             {
+                //MessageBox.Show($"StudentId - {row["StudentId"]}\nAssignmentId - {row["AssignmentId"]}\nFirstName - {row["FirstName"]}\nLastName - {row["LastName"]}\nAssignmentName - {row["AssignmentName"]}\nPoints - {row["Points"]}\nType - {row["Type"]}");
                 gradeList.Add(new StudentGradeInfo(
-                    (int)row["StudentId"],
-                    (int)row["AssignmentId"],
-                    (string)row["FirstName"],
-                    (string)row["LastName"],
-                    (string)row["AssignmentName"],
-                    (int)row["Points"],
-                    (AssignmentTypesEnum)row["Type"]));
+                (int)row["StudentId"],
+                (int)row["AssignmentId"],
+                (string)row["FirstName"],
+                (string)row["LastName"],
+                (string)row["AssignmentName"],
+                (int)row["Points"],
+                (AssignmentTypesEnum)row["Type"]));
             }
 
             gradeList = gradeList.OrderByDescending(n => n.AssignmentName).ToList();
         }
     }
+
 }
