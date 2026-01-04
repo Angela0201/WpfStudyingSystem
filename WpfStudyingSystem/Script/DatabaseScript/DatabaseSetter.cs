@@ -111,17 +111,14 @@ $@"UPDATE {TableNameSet.COURSES}
         public void SetAssignment(Assignment assignment, int courseId)
         {///Crates assignment and sets it in assignment dependencies table
             //MessageBox.Show("AAAAAAAAAAAAAAAAAAA");
+            var app = (App)Application.Current;
+            IDatabaseController ctl = app.Services.GetService<IDatabaseController>();
+
             string command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Name, Date, Description, Type)
  VALUES ('{assignment.Name}', {assignment.DateString}, '{assignment.Description}', {(int)assignment.Type});";
             AssignData(command);
 
-            //
-            //var app = (App)Application.Current;
-            //IDatabaseController ctl = app.Services.GetService<IDatabaseController>();
-            //DataTable dt = ctl.ExecuteReturnCommand($@"SELECT * FROM {TableNameSet.ASSIGNMENTS};");
-            //int asId = 
-            //
             MessageBox.Show(command);
 
             command =
@@ -130,8 +127,7 @@ $@"INSERT INTO {TableNameSet.ASSIGNMENTS_DEPENDENCIES} (CourseId, AssignmentId)
             AssignData(command);
             MessageBox.Show(command);
 
-            var app = (App)Application.Current;
-            IDatabaseController ctl = app.Services.GetService<IDatabaseController>();
+            
             DataTable dt = ctl.ExecuteReturnCommand($@"SELECT * FROM {TableNameSet.DRAFTS} WHERE CourseId = {courseId};");
             if (dt.Rows.Count < 1) { return; }
 
