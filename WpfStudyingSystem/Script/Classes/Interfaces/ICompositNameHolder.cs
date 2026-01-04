@@ -8,6 +8,7 @@ namespace WpfStudyingSystem.Script.Classes.Interfaces
 {
     public interface ICompositNameHolder
     {
+        //for classes with full and second name
         string FirstName { get; }
         string LastName { get; }
         string FullName { get; }

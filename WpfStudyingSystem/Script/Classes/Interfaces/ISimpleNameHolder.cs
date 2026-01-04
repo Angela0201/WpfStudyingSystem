@@ -8,6 +8,7 @@ namespace WpfStudyingSystem.Script.Classes.Interfaces
 {
     public interface ISimpleNameHolder
     {
+        //for classes with simple names
         string Name { get; }
     }
 }

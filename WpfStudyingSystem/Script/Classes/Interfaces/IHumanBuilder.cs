@@ -9,6 +9,8 @@ namespace WpfStudyingSystem.Script.Classes.Interfaces
 {
     public interface IHumanBuilder
     {
+        //builder that need to be passed to director to build humans
+
         void Reset();
         void SetName(string firstName, string lastName);
         void SetAge(int age);

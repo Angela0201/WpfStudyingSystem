@@ -8,6 +8,7 @@ namespace WpfStudyingSystem.Script.Classes.Interfaces
 {
     public interface IAged
     {
+        //im too old for this
         int Age {  get; }
     }
 }

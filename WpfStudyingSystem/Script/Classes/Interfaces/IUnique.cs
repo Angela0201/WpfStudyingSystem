@@ -8,6 +8,7 @@ namespace WpfStudyingSystem.Script.Classes.Interfaces
 {
     public interface IUnique
     {
+        //for classeswith unique identificator
         int Id { get; }
     }
 }

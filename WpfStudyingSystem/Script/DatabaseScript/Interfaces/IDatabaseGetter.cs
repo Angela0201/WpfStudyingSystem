@@ -9,6 +9,7 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Interfaces
 {
     public interface IDatabaseGetter
     {
+        //Simple getter for database
         DataTable GetTable(string tableName);
         DataRow GetRow(int id, string tableName);
         int GetUniqueId(string tableName);

@@ -10,6 +10,7 @@ namespace WpfStudyingSystem.Script.Other.Interfaces
 {
     public interface ISpecificListFilter
     {
+        //Filters student list by selected criterias
         List<T> SortListByFirstName<T>(List<T> lst) where T: ICompositNameHolder;
         List<T> SortListByLastName<T>(List<T> lst) where T : ICompositNameHolder;
 
