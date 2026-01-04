@@ -663,6 +663,9 @@ namespace WpfStudyingSystem
                 return;
             }
 
+            //
+            GradesList.Items.Clear();
+            //
             GradesList.ItemsSource = list;
         }
         private void GradesSetPoints_Click(object sender, RoutedEventArgs e)
