@@ -29,5 +29,6 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Interfaces
         void RemoveStudentFromCourse(int studentId, int courseId);
         void RemoveTeacherFromCourse(int teacherId, int courseId);
         void UpdateCourseName(int courseId, string newName);
+        void UpdateAssignment(Assignment assignment);
     }
 }

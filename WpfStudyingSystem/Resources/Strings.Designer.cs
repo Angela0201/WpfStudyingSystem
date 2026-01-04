@@ -430,6 +430,15 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Ui_Export {
+            get {
+                return ResourceManager.GetString("Ui_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Ui_Filter {
@@ -507,15 +516,6 @@ namespace WpfStudyingSystem.Resources {
         public static string UI_GradesList {
             get {
                 return ResourceManager.GetString("UI_GradesList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Import.
-        /// </summary>
-        public static string Ui_Import {
-            get {
-                return ResourceManager.GetString("Ui_Import", resourceCulture);
             }
         }
         

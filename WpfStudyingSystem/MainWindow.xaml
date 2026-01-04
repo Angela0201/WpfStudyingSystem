@@ -124,10 +124,10 @@
                     Click="GradesSetPoints_Click"/>
 
             <Button Grid.Row="4"
-                    Content="{x:Static res:Strings.Ui_Import}"
+                    Content="{x:Static res:Strings.Ui_Export}"
                     Height="28"
                     HorizontalAlignment="Stretch"
-                    Click="Import_Click"/>
+                    Click="Export_Click"/>
         </Grid>
         
         <Border x:Name="AssignmentDialogOverlay"

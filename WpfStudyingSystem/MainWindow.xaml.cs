@@ -25,7 +25,7 @@ using WpfStudyingSystem.Script.DatabaseScript.Usables;
 using WpfStudyingSystem.Script.Interfaces;
 using WpfStudyingSystem.Script.ViewModels;
 using System.IO;
-using WpfStudyingSystem.Script.Importing;
+using WpfStudyingSystem.Script.Exporting;
 using Microsoft.Win32;
 
 namespace WpfStudyingSystem
@@ -194,9 +194,9 @@ namespace WpfStudyingSystem
 
             var app = (App)Application.Current;
             var director = app.Services.GetService<IBuildDirector>();
-            var controller = app.Services.GetService<IDatabaseController>();
+            var setter = app.Services.GetService<IDatabaseSetter>();
 
-            if (director == null || controller == null)
+            if (director == null || setter == null)
             {
                 MessageBox.Show(Strings.Msg_ServicesNotAvailable);
                 return;
@@ -224,23 +224,11 @@ namespace WpfStudyingSystem
 
             if (redactMode && currentAssignment != null)
             {
-                controller.ExecuteCommand(
-            $@"UPDATE {TableNameSet.ASSIGNMENTS}
-            SET Name = '{safeName}', Date = '{safeDate}', Description = '{safeDesc}', Type = {typeInt}
-            WHERE Id = {currentAssignment.Id};");
+                setter.UpdateAssignment(assignment);
             }
             else
             {
-                DataTable aid = controller.ExecuteReturnCommand(
-            $@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Name, Date, Description, Type)
-            VALUES ('{safeName}', '{safeDate}', '{safeDesc}', {typeInt});
-            SELECT CAST(SCOPE_IDENTITY() AS INT) AS NewId;");
-
-                int newAssignmentId = Convert.ToInt32(aid.Rows[0]["NewId"]);
-
-                controller.ExecuteCommand(
-            $@"INSERT INTO {TableNameSet.ASSIGNMENTS_DEPENDENCIES} (CourseId, AssignmentId)
-            VALUES ({currentCourseId}, {newAssignmentId});");
+                setter.SetAssignment(assignment, currentCourseId);
             }
 
             var vmReload = DataContext as MainViewModel;
@@ -785,7 +773,7 @@ namespace WpfStudyingSystem
 
             GradesList.ItemsSource = list;
         }
-        private void Import_Click(object sender, RoutedEventArgs e)
+        private void Export_Click(object sender, RoutedEventArgs e)
         {
             var app = (App)Application.Current;
             var controller = app.Services.GetService<IDatabaseController>();
@@ -795,7 +783,7 @@ namespace WpfStudyingSystem
                 return;
             }
 
-            var data = BuildImportData(controller);
+            var data = BuildExportData(controller);
             var csv = BuildCsv(data);
 
             var dialog = new SaveFileDialog();
@@ -810,9 +798,9 @@ namespace WpfStudyingSystem
             }
         }
 
-        private StudySystemImportData BuildImportData(IDatabaseController controller)
+        private StudySystemExportData BuildExportData(IDatabaseController controller)
         {
-            var data = new StudySystemImportData();
+            var data = new StudySystemExportData();
 
             var courses = controller.ExecuteReturnCommand($"SELECT Id, Name, TeacherId FROM {TableNameSet.COURSES};");
             foreach (DataRow row in courses.Rows)
@@ -906,7 +894,7 @@ namespace WpfStudyingSystem
             return data;
         }
 
-        private string BuildCsv(StudySystemImportData data)
+        private string BuildCsv(StudySystemExportData data)
         {
             var sb = new StringBuilder();
 

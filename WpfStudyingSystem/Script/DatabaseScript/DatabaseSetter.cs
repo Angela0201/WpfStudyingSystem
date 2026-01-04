@@ -311,5 +311,19 @@ $@"UPDATE {TableNameSet.COURSES}
  WHERE Id = {courseId} AND TeacherId = {teacherId};";
             AssignData(command);
         }
+        public void UpdateAssignment(Assignment assignment)
+        {
+            string safeName = (assignment.Name ?? "").Replace("'", "''");
+            string safeDesc = (assignment.Description ?? "").Replace("'", "''");
+            string safeDate = assignment.Date.ToString("yyyy-MM-dd HH:mm:ss");
+            int typeInt = (int)assignment.Type;
+
+            string command =
+        $@"UPDATE {TableNameSet.ASSIGNMENTS}
+SET Name = '{safeName}', Date = '{safeDate}', Description = '{safeDesc}', Type = {typeInt}
+WHERE Id = {assignment.Id};";
+
+            AssignData(command);
+        }
     }
 }

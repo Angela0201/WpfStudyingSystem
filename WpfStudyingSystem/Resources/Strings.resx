@@ -267,8 +267,8 @@
   <data name="Ui_Grade_SetTitle" xml:space="preserve">
     <value>Set student points</value>
   </data>
-  <data name="Ui_Import" xml:space="preserve">
-    <value>Import</value>
+  <data name="Ui_Export" xml:space="preserve">
+    <value>Export</value>
   </data>
   <data name="Ui_LastName" xml:space="preserve">
     <value>Last name</value>

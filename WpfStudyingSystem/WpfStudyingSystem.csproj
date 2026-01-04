@@ -130,7 +130,7 @@
     <Compile Include="Script\DatabaseScript\Usables\DatabaseGenerator.cs" />
     <Compile Include="Script\DatabaseScript\DatabaseSetter.cs" />
     <Compile Include="Script\DatabaseScript\Usables\Sets\TableNameSet.cs" />
-    <Compile Include="Script\Importing\StudySystemImportData.cs" />
+    <Compile Include="Script\Exporting\StudySystemExportData.cs" />
     <Compile Include="Script\Other\Interfaces\IInformator.cs" />
     <Compile Include="Script\Other\Informator.cs" />
     <Compile Include="Script\Other\Interfaces\ISpecificListFilter.cs" />

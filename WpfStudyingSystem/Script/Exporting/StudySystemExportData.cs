@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfStudyingSystem.Script.Importing
+namespace WpfStudyingSystem.Script.Exporting
 {
-    public class StudySystemImportData
+    public class StudySystemExportData
     {
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
