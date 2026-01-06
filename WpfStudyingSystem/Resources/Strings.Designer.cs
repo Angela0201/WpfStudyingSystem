@@ -619,6 +619,51 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Age.
+        /// </summary>
+        public static string Ui_StudentSort_Age {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_Age", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort.
+        /// </summary>
+        public static string Ui_StudentSort_Button {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        public static string Ui_StudentSort_FirstName {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full name.
+        /// </summary>
+        public static string Ui_StudentSort_FullName {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        public static string Ui_StudentSort_LastName {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teacher full name.
         /// </summary>
         public static string Ui_TeacherFullName {

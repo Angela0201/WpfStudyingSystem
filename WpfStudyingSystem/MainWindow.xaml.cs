@@ -977,5 +977,35 @@ namespace WpfStudyingSystem
             var v = value.Replace("\r", " ").Replace("\n", " ").Replace(";", ",");
             return v;
         }
+
+        private void StudentsSort_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MainViewModel;
+            if (vm == null)
+            {
+                MessageBox.Show(Strings.Msg_ServicesNotAvailable);
+                return;
+            }
+
+            var app = (App)Application.Current;
+            var sorter = app.Services.GetService<Script.Other.Interfaces.ISpecificListFilter>();
+            if (sorter == null)
+            {
+                MessageBox.Show(Strings.Msg_ServicesNotAvailable);
+                return;
+            }
+
+            var list = vm.CourseStudents.ToList();
+
+            var mode = StudentsSortBox.SelectedIndex;
+
+            if (mode == 0) list = sorter.SortListByFirstName(list);
+            else if (mode == 1) list = sorter.SortListByLastName(list);
+            else if (mode == 2) list = sorter.SortListByAge(list);
+            else list = sorter.SortListBySimpleNameName(list);
+
+            vm.CourseStudents.Clear();
+            foreach (var s in list) vm.CourseStudents.Add(s);
+        }
     }
 }

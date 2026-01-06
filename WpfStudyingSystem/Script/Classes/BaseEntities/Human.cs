@@ -7,7 +7,7 @@ using WpfStudyingSystem.Script.Classes.Interfaces;
 
 namespace WpfStudyingSystem.Script.Classes.BaseEntities
 {
-    public abstract class Human: IUnique, ICompositNameHolder, IAged
+    public abstract class Human: IUnique, ICompositNameHolder, IAged, ISimpleNameHolder
     {
         private int id;
         private string firstName;
@@ -18,6 +18,7 @@ namespace WpfStudyingSystem.Script.Classes.BaseEntities
         public string FirstName => firstName;
         public string LastName => lastName;
         public string FullName => FirstName + " " + LastName;
+        public string Name => FullName;
         public int Age => age;
 
         public Human(int gIndex, string gFirstName, string glastName, int gAge)
