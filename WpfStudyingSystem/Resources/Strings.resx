@@ -330,4 +330,7 @@
   <data name="Ui_StudentSort_FullName" xml:space="preserve">
     <value>Full name</value>
   </data>
+  <data name="Msg_NoGradeData" xml:space="preserve">
+    <value>Create an assignment for this type of grading method first.</value>
+  </data>
 </root>

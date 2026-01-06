@@ -187,6 +187,15 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create an assignment for this type of grading method first..
+        /// </summary>
+        public static string Msg_NoGradeData {
+            get {
+                return ResourceManager.GetString("Msg_NoGradeData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No grade data for this course yet..
         /// </summary>
         public static string Msg_NoGrades {

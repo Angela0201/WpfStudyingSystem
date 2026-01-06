@@ -211,8 +211,6 @@ $@"INSERT INTO {TableNameSet.TEACHERS} (HumanId)
             AssignData(command);
         }
 
-
-
         private void AssignData(string command)
         {
             var conn = new SqlConnection(ConnStr);

@@ -375,6 +375,13 @@ namespace WpfStudyingSystem
                 return;
             }
 
+            GradesList.ItemsSource = null;
+            GradesList.Items.Clear();
+            currentGradeInfo = null;
+
+            gradesFilterMode = 0;
+            FilterButton.Content = Strings.UI_Filter_All;
+
             TeacherNameText.Text = GetTeacherFullName(course.TeacherId);
 
             //vm.LoadAssignments(course.Id);
@@ -683,7 +690,11 @@ namespace WpfStudyingSystem
                 return;
             }
 
-            var info = (WpfStudyingSystem.Script.Other.Sets.StudentGradeInfo)GradesList.SelectedItem;
+            if (!(GradesList.SelectedItem is Script.Other.Sets.StudentGradeInfo info))
+            {
+                MessageBox.Show(Strings.Msg_NoGradeData);
+                return;
+            }
             currentGradeInfo = info;
 
             if (info.AssignmentType == AssignmentTypesEnum.Credit)
