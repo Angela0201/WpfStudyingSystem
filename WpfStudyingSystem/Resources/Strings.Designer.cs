@@ -115,6 +115,15 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For Credit assignments enter 0 for Failed and 1 for Passed..
+        /// </summary>
+        public static string Msg_CreditPointsHint {
+            get {
+                return ResourceManager.GetString("Msg_CreditPointsHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter student&apos;s age:.
         /// </summary>
         public static string Msg_EnterStudentAge {
@@ -147,6 +156,15 @@ namespace WpfStudyingSystem.Resources {
         public static string Msg_FirstNameRequired {
             get {
                 return ResourceManager.GetString("Msg_FirstNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Msg_InfoTitle {
+            get {
+                return ResourceManager.GetString("Msg_InfoTitle", resourceCulture);
             }
         }
         

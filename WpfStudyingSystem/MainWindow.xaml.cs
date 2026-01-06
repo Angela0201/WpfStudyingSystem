@@ -686,6 +686,15 @@ namespace WpfStudyingSystem
             var info = (WpfStudyingSystem.Script.Other.Sets.StudentGradeInfo)GradesList.SelectedItem;
             currentGradeInfo = info;
 
+            if (info.AssignmentType == AssignmentTypesEnum.Credit)
+            {
+                MessageBox.Show(
+                    Strings.Msg_CreditPointsHint,
+                    Strings.Msg_InfoTitle,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+            }
             GradeDialogTitle.Text = Strings.Ui_Grade_SetTitle;
             GradePointsBox.Text = info.Points.ToString();
 
