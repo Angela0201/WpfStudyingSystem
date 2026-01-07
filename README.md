@@ -17,6 +17,7 @@ The MAIN WINDOW is divided into several functional areas:
      5) Export CSV
 
 WORKING WITH COURSES:
+     
      Create a course:
   1. Click Create in the Courses section.
   2. Enter: Course nameTeacher full name (first name + last name)
