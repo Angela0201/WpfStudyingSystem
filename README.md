@@ -17,6 +17,7 @@ The MAIN WINDOW is divided into several functional areas:
      5) Export CSV
 
 WORKING WITH COURSES:
+  
   Create a course:
   1. Click Create in the Courses section.
   2. Enter: Course nameTeacher full name (first name + last name)
@@ -45,34 +46,39 @@ WORKING WITH STUDENTS:
   4. Enter: First name, last name, age.
   5. Click OK.
      The student will be added to the selected course.
-
-     Deleting a Student from a Course:
+ 
+ 
+  Deleting a Student from a Course:
   1. Select a course.
   2. Select a student.
   3. Click Delete.
 
 WOWKING WITH ASSIGNMENTS:
-     Create an Assignment:
+  
+  Create an Assignment:
   1. Select a course.
   2. Click Create in the Assignments section.
   3. Enter: Assignment name, due date, assignment type (Grade/Credit/EAP), description (optional)
   4. Click OK.
      The assignment will be created and linked to the selected course.
 
-     Edit an Assignment:
+  
+  Edit an Assignment:
   1. Select a course.
   2. Select an assignment.
   3. Click Redact.
   4. Modify the assignment data.
   5. Click OK.
 
-     Delete an Assignment:
+  
+  Delete an Assignment:
   1. Select a course.
   2. Select an assignment.
   3. Click Delete.
 
 WORKING WITH GRADES/RESULTS:
-     Loading Grades:
+  
+  Loading Grades:
   1. Select a course.
   2. Click Filter to load grade data.
      There must be at least one student and at least one assignment for the selected assessment method, otherwise a corresponding message will be displayed.
@@ -88,7 +94,7 @@ SETTING POINTS:
   3. Enter points according to assignment type:
      1. Grade and EAP: integer value from 0 to 100
      2. Credit: 0 = Failed; 1 = Passed
-  4. Click OK.
+  5. Click OK.
 
 Export to CSV: Click Export, choose a file location, save the file, the exported CSV contains structured data for: courses, teachers, students, assignments, assignment dependencies, assignment statistics
 
