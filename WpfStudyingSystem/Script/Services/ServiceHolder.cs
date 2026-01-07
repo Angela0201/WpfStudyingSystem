@@ -13,6 +13,7 @@ using WpfStudyingSystem.Script.Interfaces;
 using WpfStudyingSystem.Script.Other;
 using WpfStudyingSystem.Script.Other.Interfaces;
 using WpfStudyingSystem.Script.Services.Interfaces;
+using WpfStudyingSystem.Script.Exporting;
 
 namespace WpfStudyingSystem.Script.Services
 {
@@ -37,6 +38,7 @@ namespace WpfStudyingSystem.Script.Services
 
             sc.AddSingleton<ISpecificListFilter, SpecificListFilter>();
             sc.AddSingleton<IInformator, Informator>();
+            sc.AddSingleton<IExportService, ExportService>();
 
             services = sc.BuildServiceProvider();
         }

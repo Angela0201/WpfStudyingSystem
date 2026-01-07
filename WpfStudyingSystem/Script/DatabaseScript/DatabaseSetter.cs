@@ -116,16 +116,16 @@ $@"UPDATE {TableNameSet.COURSES}
 
             string command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Name, Date, Description, Type)
- VALUES ('{assignment.Name}', {assignment.DateString}, '{assignment.Description}', {(int)assignment.Type});";
+ VALUES ('{assignment.Name}', '{assignment.DateString}', '{assignment.Description}', {(int)assignment.Type});";
             AssignData(command);
 
-            MessageBox.Show(command);
+            //MessageBox.Show(command);
 
             command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS_DEPENDENCIES} (CourseId, AssignmentId)
  VALUES ({courseId}, {assignment.Id});";
             AssignData(command);
-            MessageBox.Show(command);
+            //MessageBox.Show(command);
 
             
             DataTable dt = ctl.ExecuteReturnCommand($@"SELECT * FROM {TableNameSet.DRAFTS} WHERE CourseId = {courseId};");
@@ -139,7 +139,7 @@ $@"INSERT INTO {TableNameSet.ASSIGNMENTS_STATISTICS} (StudentId, AssignmentId, P
             {
                 command += $" ({(int)row["StudentId"]}, {assignment.Id}, 0),";
             }
-            MessageBox.Show(command);
+            //MessageBox.Show(command);
             command = command.Remove(command.Length - 1) + ";";
             AssignData(command);
 

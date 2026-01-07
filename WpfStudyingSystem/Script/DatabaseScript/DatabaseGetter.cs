@@ -82,7 +82,6 @@ namespace WpfStudyingSystem.Script.DatabaseScript
                     return 1;
             }
 
-            MessageBox.Show("tomatos");
             var conn = new SqlConnection(ConnStr);
             conn.Open();
 
