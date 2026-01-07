@@ -18,7 +18,7 @@ namespace WpfStudyingSystem.Script.Exporting
             this.controller = controller;
         }
 
-        public string BuildCsvExport()
+        public string BuildExport()
         {
             var data = BuildExportData();
             return BuildCsv(data);

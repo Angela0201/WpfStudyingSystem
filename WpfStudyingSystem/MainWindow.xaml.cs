@@ -388,7 +388,54 @@ namespace WpfStudyingSystem
             vm.LoadCourseStudents(course.Id);
             vm.LoadAssignments(course.Id);
             StudentInfoText.Text = "";
+
+            //
+            FilterGradeNonChange(FilterButton, null);
+            //
         }
+
+        //
+        private void FilterGradeNonChange(object sender, EventArgs e)
+        {
+            var course = CoursesList.SelectedItem as Course;
+            if (course == null)
+            {
+                MessageBox.Show(Strings.Msg_SelectCourseFirst);
+                return;
+            }
+
+            var app = (App)Application.Current;
+            var informator = app.Services.GetService<WpfStudyingSystem.Script.Other.Interfaces.IInformator>();
+            if (informator == null)
+            {
+                MessageBox.Show(Strings.Msg_ServicesNotAvailable);
+                return;
+            }
+
+            var students = new List<Human>();
+            foreach (var item in StudentsList.Items)
+            {
+                var h = item as Human;
+                if (h != null) students.Add(h);
+            }
+
+            informator.LoadStudentList(students, course.Id);
+
+            var list = informator.GetStudentGradeInfoList();
+
+            GradesList.ItemsSource = null;
+            GradesList.Items.Clear();
+
+            if (list == null || list.Count == 0)
+            {
+                GradesList.Items.Add(Strings.Msg_NoGrades);
+                return;
+            }
+
+            //
+            GradesList.ItemsSource = list;
+        }
+        //
 
         private void CoursesArea_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -816,7 +863,7 @@ namespace WpfStudyingSystem
                 return;
             }
 
-            var csv = exporter.BuildCsvExport();
+            var csv = exporter.BuildExport();
 
             var dialog = new SaveFileDialog();
             dialog.Filter = "CSV files (*.csv)|*.csv";
