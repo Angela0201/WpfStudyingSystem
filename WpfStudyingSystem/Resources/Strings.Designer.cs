@@ -178,6 +178,15 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only letters are allowed..
+        /// </summary>
+        public static string Msg_NameLettersOnly {
+            get {
+                return ResourceManager.GetString("Msg_NameLettersOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name is required..
         /// </summary>
         public static string Msg_NameRequired {
@@ -196,7 +205,7 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No grade data for this course yet..
+        ///   Looks up a localized string similar to No student  in the course or assignment for this grading method..
         /// </summary>
         public static string Msg_NoGrades {
             get {
@@ -286,7 +295,7 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter teacher full name.
+        ///   Looks up a localized string similar to Enter teacher full name without digits..
         /// </summary>
         public static string Msg_TeacherNameFormat {
             get {

@@ -465,6 +465,12 @@ namespace WpfStudyingSystem
                 return;
             }
 
+            if (first.Any(char.IsDigit) || last.Any(char.IsDigit))
+            {
+                MessageBox.Show(Strings.Msg_NameLettersOnly);
+                return;
+            }
+
             string ageText = (StudentAgeBox.Text ?? "").Trim();
             int age;
             if (!int.TryParse(ageText, out age) || age <= 0)
@@ -599,6 +605,11 @@ namespace WpfStudyingSystem
             string firstName = parts[0];
             string lastName = string.Join(" ", parts.Skip(1));
 
+            if (firstName.Any(char.IsDigit) || lastName.Any(char.IsDigit))
+            {
+                return -1;
+            }
+
             string safeFirst = firstName.Replace("'", "''");
             string safeLast = lastName.Replace("'", "''");
 
@@ -663,6 +674,7 @@ namespace WpfStudyingSystem
             else if (gradesFilterMode == 3) list = list.Where(x => x.AssignmentType == AssignmentTypesEnum.EAP).ToList();
 
             GradesList.ItemsSource = null;
+            GradesList.Items.Clear();
 
             if (list == null || list.Count == 0)
             {
@@ -670,8 +682,6 @@ namespace WpfStudyingSystem
                 return;
             }
 
-            //
-            GradesList.Items.Clear();
             //
             GradesList.ItemsSource = list;
         }

@@ -154,7 +154,7 @@
     <value>Name is required.</value>
   </data>
   <data name="Msg_NoGrades" xml:space="preserve">
-    <value>No grade data for this course yet.</value>
+    <value>No student  in the course or assignment for this grading method.</value>
   </data>
   <data name="Msg_NoStudentsToAdd" xml:space="preserve">
     <value>No available students to add.</value>
@@ -184,7 +184,7 @@
     <value>Services are not available.</value>
   </data>
   <data name="Msg_TeacherNameFormat" xml:space="preserve">
-    <value>Enter teacher full name</value>
+    <value>Enter teacher full name without digits.</value>
   </data>
   <data name="Msg_TeacherNameRequired" xml:space="preserve">
     <value>Teacher name is required.</value>
@@ -332,5 +332,8 @@
   </data>
   <data name="Msg_NoGradeData" xml:space="preserve">
     <value>Create an assignment for this type of grading method first.</value>
+  </data>
+  <data name="Msg_NameLettersOnly" xml:space="preserve">
+    <value>Only letters are allowed.</value>
   </data>
 </root>
