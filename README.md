@@ -126,7 +126,7 @@ Requirements:
 
 Otherwise, a corresponding message will be displayed.
 
-> Grade lists are cleared when switching between courses.
+>  When switching between courses, the grade list is automatically updated based on on the selected course.
 
 ---
 
