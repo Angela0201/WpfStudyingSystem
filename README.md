@@ -1,105 +1,184 @@
-The project is a WPF studying system. 
-The main screen of the application is used to manage courses, students, assignments and grading. Teachers can create courses, add students to the course, create assignments and grade them for each student.
-It also record results, filters data, and export information to CSV.
+## Project Overview
 
-The MAIN WINDOW is divided into several functional areas:
-  1. Courses list (left)
-  2. Teacher name (center, top)
-  3. Students list (center, middle)
-  4. Assignments list (center, bottom)
-  5. Information panels about students and assignments (right)
-  6. Grades/Results panel (right, bottom)
-  7. Control buttons:
-     1) Courses and assignments: Create/Delete/Redact;
-     2) Students: Add/Delete/Sort;
-     3) Grades: Set points
-     4) To see the results of all students for the selected assessment method: Filter
-     5) Export CSV
+The project is a **WPF studying system**.
 
-WORKING WITH COURSES:
-  
-  Create a course:
-  1. Click Create in the Courses section.
-  2. Enter: Course nameTeacher full name (first name + last name)
-  3. Click OK to save the course.
+The main screen of the application is used to manage **courses, students, assignments, and grading**.  
+Teachers can create courses, add students to courses, create assignments, and grade them for each student.
 
+The system also:
+- records results
+- filters data
+- exports information to CSV
 
-  Edit a course:
-  1. Select a course from the courses list.
-  2. Click Redact.
-  3. Change the course name or teacher name.
-  4. Click OK to apply changes.
+---
 
-  
-  Delete a Course:
-  1. Select a course.
-  2. Click Delete.
+## Main Window Layout
 
-     Changing the selected course automatically reloads students and assignments.
+The **Main Window** is divided into several functional areas:
 
-WORKING WITH STUDENTS:
+1. **Courses list** (left)
+2. **Teacher name** (center, top)
+3. **Students list** (center, middle)
+4. **Assignments list** (center, bottom)
+5. **Information panels** about students and assignments (right)
+6. **Grades / Results panel** (right, bottom)
 
-  Adding:
-  1. Add a Student to a Course
-  2. Select a course.
-  3. Click Add in the Students section.
-  4. Enter: First name, last name, age.
-  5. Click OK.
-     The student will be added to the selected course.
- 
- 
-  Deleting a Student from a Course:
-  1. Select a course.
-  2. Select a student.
-  3. Click Delete.
+### Control Buttons
 
-WOWKING WITH ASSIGNMENTS:
-  
-  Create an Assignment:
-  1. Select a course.
-  2. Click Create in the Assignments section.
-  3. Enter: Assignment name, due date, assignment type (Grade/Credit/EAP), description (optional)
-  4. Click OK.
-     The assignment will be created and linked to the selected course.
+- **Courses and assignments**: Create / Delete / Redact
+- **Students**: Add / Delete / Sort
+- **Grades**: Set points
+- **Results filtering**: Filter by assessment method
+- **Export**: CSV
 
-  
-  Edit an Assignment:
-  1. Select a course.
-  2. Select an assignment.
-  3. Click Redact.
-  4. Modify the assignment data.
-  5. Click OK.
+---
 
-  
-  Delete an Assignment:
-  1. Select a course.
-  2. Select an assignment.
-  3. Click Delete.
+## Working with Courses
 
-WORKING WITH GRADES/RESULTS:
-  
-  Loading Grades:
-  1. Select a course.
-  2. Click Filter to load grade data.
-     There must be at least one student and at least one assignment for the selected assessment method, otherwise a corresponding message will be displayed.
+### Create a Course
+1. Click **Create** in the *Courses* section.
+2. Enter:
+   - Course name
+   - Teacher full name (first name + last name)
+3. Click **OK** to save the course.
 
-     Grade lists are cleared when switching between courses.
+---
 
-WORKING WITH FILTER grades by assesment type:
-  Each click on Filter cycles through: all assignments, grade assignments, credit assignments, EAP assignments
+### Edit a Course
+1. Select a course from the courses list.
+2. Click **Redact**.
+3. Change the course name or teacher name.
+4. Click **OK** to apply changes.
 
-SETTING POINTS: 
-  1. Select a grade record in the Grades/Results list.
-  2. Click Set points.
-  3. Enter points according to assignment type:
-     1. Grade and EAP: integer value from 0 to 100
-     2. Credit: 0 = Failed; 1 = Passed
-  5. Click OK.
+---
 
-Export to CSV: Click Export, choose a file location, save the file, the exported CSV contains structured data for: courses, teachers, students, assignments, assignment dependencies, assignment statistics
+### Delete a Course
+1. Select a course.
+2. Click **Delete**.
 
-DISPLAY DATA:
-  1. Assignment Information:
-     When an assignment is selected, its details (due date, type, description) are shown in the Assignment info panel.
-  2. Student Information:
-     When a student is added, their details (full name and age) are displayed in the student info panel.
+> Changing the selected course automatically reloads students and assignments.
+
+---
+
+## Working with Students
+
+### Add a Student to a Course
+1. Select a course.
+2. Click **Add** in the *Students* section.
+3. Enter:
+   - First name
+   - Last name
+   - Age
+4. Click **OK**.
+
+> The student will be added to the selected course.
+
+---
+
+### Delete a Student from a Course
+1. Select a course.
+2. Select a student.
+3. Click **Delete**.
+
+---
+
+## Working with Assignments
+
+### Create an Assignment
+1. Select a course.
+2. Click **Create** in the *Assignments* section.
+3. Enter:
+   - Assignment name
+   - Due date
+   - Assignment type (**Grade / Credit / EAP**)
+   - Description (optional)
+4. Click **OK**.
+
+> The assignment will be created and linked to the selected course.
+
+---
+
+### Edit an Assignment
+1. Select a course.
+2. Select an assignment.
+3. Click **Redact**.
+4. Modify the assignment data.
+5. Click **OK**.
+
+---
+
+### Delete an Assignment
+1. Select a course.
+2. Select an assignment.
+3. Click **Delete**.
+
+---
+
+## Working with Grades / Results
+
+### Loading Grades
+1. Select a course.
+2. Click **Filter** to load grade data.
+
+Requirements:
+- At least one student
+- At least one assignment for the selected assessment method  
+
+Otherwise, a corresponding message will be displayed.
+
+> Grade lists are cleared when switching between courses.
+
+---
+
+### Filtering Grades by Assessment Type
+
+Each click on **Filter** cycles through:
+- All assignments
+- Grade assignments
+- Credit assignments
+- EAP assignments
+
+---
+
+### Setting Points
+1. Select a grade record in the *Grades / Results* list.
+2. Click **Set points**.
+3. Enter points according to assignment type:
+   - **Grade / EAP**: integer value from `0` to `100`
+   - **Credit**:
+     - `0` — Failed
+     - `1` — Passed
+4. Click **OK**.
+
+---
+
+## Export to CSV
+
+1. Click **Export**.
+2. Choose a file location.
+3. Save the file.
+
+The exported CSV contains structured data for:
+- courses
+- teachers
+- students
+- assignments
+- assignment dependencies
+- assignment statistics
+
+---
+
+## Displayed Information
+
+### Assignment Information
+When an assignment is selected, its details are shown in the *Assignment Information* panel:
+- due date
+- assignment type
+- description
+
+---
+
+### Student Information
+When a student is selected, their details are shown in the *Student Information* panel:
+- full name
+- age
