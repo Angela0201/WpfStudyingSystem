@@ -816,7 +816,7 @@ namespace WpfStudyingSystem
                 return;
             }
 
-            var csv = exporter.BuildCsvExport();
+            var csv = exporter.BuildExport();
 
             var dialog = new SaveFileDialog();
             dialog.Filter = "CSV files (*.csv)|*.csv";

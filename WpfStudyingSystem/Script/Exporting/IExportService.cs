@@ -8,6 +8,6 @@ namespace WpfStudyingSystem.Script.Exporting
 {
     public interface IExportService
     {
-        string BuildCsvExport();
+        string BuildExport();
     }
 }
