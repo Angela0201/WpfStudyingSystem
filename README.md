@@ -17,26 +17,28 @@ The MAIN WINDOW is divided into several functional areas:
      5) Export CSV
 
 WORKING WITH COURSES:
-     
-     Create a course:
+  Create a course:
   1. Click Create in the Courses section.
   2. Enter: Course nameTeacher full name (first name + last name)
   3. Click OK to save the course.
 
-     Edit a Course:
+
+  Edit a course:
   1. Select a course from the courses list.
   2. Click Redact.
   3. Change the course name or teacher name.
   4. Click OK to apply changes.
 
-     Delete a Course:
+  
+  Delete a Course:
   1. Select a course.
   2. Click Delete.
 
      Changing the selected course automatically reloads students and assignments.
 
 WORKING WITH STUDENTS:
-     Adding:
+
+  Adding:
   1. Add a Student to a Course
   2. Select a course.
   3. Click Add in the Students section.
