@@ -8,6 +8,7 @@ namespace WpfStudyingSystem.Script.Services.Interfaces
 {
     public interface IServiceHolder
     {
+        //simply holds services
         IServiceProvider Services { get; }
     }
 }

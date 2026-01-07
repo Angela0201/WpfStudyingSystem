@@ -17,17 +17,17 @@ namespace WpfStudyingSystem.Script.Other
 
         public List<T> SortListByFirstName<T>(List<T> lst) where T : ICompositNameHolder
         {
-            return lst.OrderByDescending(n => n.FirstName).ToList();
+            return lst.OrderBy(n => (n.FirstName ?? "").Trim().ToLower()).ToList();
         }
 
         public List<T> SortListByLastName<T>(List<T> lst) where T : ICompositNameHolder
         {
-            return lst.OrderByDescending(n => n.LastName).ToList();
+            return lst.OrderBy(n => (n.LastName ?? "").Trim().ToLower()).ToList();
         }
 
         public List<T> SortListBySimpleNameName<T>(List<T> lst) where T : ISimpleNameHolder
         {
-            return lst.OrderByDescending(n => n.Name).ToList();
+            return lst.OrderBy(n => (n.Name ?? "").Trim().ToLower()).ToList();
         }
     }
 }

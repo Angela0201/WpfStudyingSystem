@@ -63,6 +63,9 @@ namespace WpfStudyingSystem.Script.Other.Interfaces
             var app = (App)Application.Current;
             IDatabaseController dtc = app.Services.GetService<IDatabaseController>();
 
+            DataTable table = dtc.ExecuteReturnCommand($"SELECT * FROM {TableNameSet.DRAFTS} WHERE CourseId = {cId}");
+            if (table.Rows.Count < 1) { return; }
+
             string cmd = 
                 $"SELECT {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.AssignmentId AS AssignmentId, {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.CourseId AS CourseId, {TableNameSet.ASSIGNMENTS}.Name AS AssignmentName, {TableNameSet.ASSIGNMENTS}.Type AS Type, {TableNameSet.ASSIGNMENTS_STATISTICS}.Points AS Points, {TableNameSet.ASSIGNMENTS_STATISTICS}.StudentId AS StudentId, {TableNameSet.HUMANS}.FirstName AS FirstName, {TableNameSet.HUMANS}.LastName AS LastName" +
                 $" FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}" +
@@ -72,7 +75,7 @@ namespace WpfStudyingSystem.Script.Other.Interfaces
                 $" LEFT JOIN {TableNameSet.HUMANS} ON {TableNameSet.STUDENTS}.HumanId = {TableNameSet.HUMANS}.Id" +
                 $" WHERE {TableNameSet.ASSIGNMENTS_DEPENDENCIES}.CourseId = {courseId};";
 
-            DataTable table = dtc.ExecuteReturnCommand(cmd);
+            table = dtc.ExecuteReturnCommand(cmd);
             gradeList = new List<StudentGradeInfo>();
 
             foreach (DataRow row in table.Rows)

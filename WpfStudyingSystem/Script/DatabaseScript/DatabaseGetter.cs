@@ -4,9 +4,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
+using WpfStudyingSystem.Script.Classes.BaseEntities;
 using WpfStudyingSystem.Script.DatabaseScript.Interfaces;
 using WpfStudyingSystem.Script.DatabaseScript.Usables;
 using WpfStudyingSystem.Script.Interfaces;
@@ -49,7 +52,50 @@ namespace WpfStudyingSystem.Script.DatabaseScript
 
         public int GetUniqueId(string tableName)
         {
-            return GetTable(tableName).Rows.Count + 1;
+            //not the best solution, but considering how the whole project is written and the time left,
+            //its better than errors
+
+            string cmd;
+            switch (tableName)
+            {
+                case TableNameSet.STUDENTS:
+                    cmd = $@"INSERT INTO {TableNameSet.STUDENTS} (HumanId)
+ VALUES (0);";
+                    break;
+                case TableNameSet.TEACHERS:
+                    cmd = $@"INSERT INTO {TableNameSet.TEACHERS} (HumanId)
+ VALUES (0);";
+                    break;
+                case TableNameSet.HUMANS:
+                    cmd = $@"INSERT INTO {TableNameSet.HUMANS} ( FirstName, LastName, Age)
+ VALUES ('test', 'test', 20);";
+                    break;
+                case TableNameSet.COURSES:
+                    cmd = $@"INSERT INTO {TableNameSet.COURSES} (Name, TeacherId)
+ VALUES ('test', 0)";
+                    break;
+                case TableNameSet.ASSIGNMENTS:
+                    cmd = $@"INSERT INTO {TableNameSet.ASSIGNMENTS} ( Name, Date, Description, Type)
+ VALUES ('test', 00-00-0000, 'test', 0);";
+                    break;
+                default:
+                    return 1;
+            }
+
+            var conn = new SqlConnection(ConnStr);
+            conn.Open();
+
+            var command = new SqlCommand(cmd, conn);
+            command.ExecuteNonQuery();
+            command = new SqlCommand($"SELECT Id FROM {tableName} ORDER BY Id Desc", conn); 
+            int nid = (int)command.ExecuteScalar();
+            command = new SqlCommand($"DELETE FROM {tableName} WHERE Id = {nid}", conn);
+            command.ExecuteNonQuery();
+
+            conn.Close();
+
+            return nid + 1;
+            //
         }
 
         private DataTable GetStudentsTable()

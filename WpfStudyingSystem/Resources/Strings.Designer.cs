@@ -115,6 +115,15 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For Credit assignments enter 0 for Failed and 1 for Passed..
+        /// </summary>
+        public static string Msg_CreditPointsHint {
+            get {
+                return ResourceManager.GetString("Msg_CreditPointsHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter student&apos;s age:.
         /// </summary>
         public static string Msg_EnterStudentAge {
@@ -151,11 +160,29 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Msg_InfoTitle {
+            get {
+                return ResourceManager.GetString("Msg_InfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name is required..
         /// </summary>
         public static string Msg_LastNameRequired {
             get {
                 return ResourceManager.GetString("Msg_LastNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only letters are allowed..
+        /// </summary>
+        public static string Msg_NameLettersOnly {
+            get {
+                return ResourceManager.GetString("Msg_NameLettersOnly", resourceCulture);
             }
         }
         
@@ -169,7 +196,16 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No grade data for this course yet..
+        ///   Looks up a localized string similar to Create an assignment for this type of grading method first..
+        /// </summary>
+        public static string Msg_NoGradeData {
+            get {
+                return ResourceManager.GetString("Msg_NoGradeData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No student  in the course or assignment for this grading method..
         /// </summary>
         public static string Msg_NoGrades {
             get {
@@ -259,7 +295,7 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter teacher full name.
+        ///   Looks up a localized string similar to Enter teacher full name without digits..
         /// </summary>
         public static string Msg_TeacherNameFormat {
             get {
@@ -430,6 +466,15 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Ui_Export {
+            get {
+                return ResourceManager.GetString("Ui_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Ui_Filter {
@@ -511,15 +556,6 @@ namespace WpfStudyingSystem.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import.
-        /// </summary>
-        public static string Ui_Import {
-            get {
-                return ResourceManager.GetString("Ui_Import", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         public static string Ui_LastName {
@@ -597,6 +633,51 @@ namespace WpfStudyingSystem.Resources {
         public static string UI_StudentsList {
             get {
                 return ResourceManager.GetString("UI_StudentsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Age.
+        /// </summary>
+        public static string Ui_StudentSort_Age {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_Age", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort.
+        /// </summary>
+        public static string Ui_StudentSort_Button {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        public static string Ui_StudentSort_FirstName {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full name.
+        /// </summary>
+        public static string Ui_StudentSort_FullName {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        public static string Ui_StudentSort_LastName {
+            get {
+                return ResourceManager.GetString("Ui_StudentSort_LastName", resourceCulture);
             }
         }
         

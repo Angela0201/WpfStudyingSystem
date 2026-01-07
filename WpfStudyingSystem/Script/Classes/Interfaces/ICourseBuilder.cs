@@ -9,6 +9,8 @@ namespace WpfStudyingSystem.Script.Classes.Interfaces
 {
     public interface ICourseBuilder
     {
+        //builder that need to be passed to director to build courses
+
         void Reset();
         void SetName(string name);
         void SetTeacher(int teacherId);

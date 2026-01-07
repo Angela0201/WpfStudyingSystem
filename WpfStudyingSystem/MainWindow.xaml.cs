@@ -24,6 +24,9 @@ using WpfStudyingSystem.Script.DatabaseScript.Interfaces;
 using WpfStudyingSystem.Script.DatabaseScript.Usables;
 using WpfStudyingSystem.Script.Interfaces;
 using WpfStudyingSystem.Script.ViewModels;
+using System.IO;
+using WpfStudyingSystem.Script.Exporting;
+using Microsoft.Win32;
 
 namespace WpfStudyingSystem
 {
@@ -128,8 +131,6 @@ namespace WpfStudyingSystem
 
             setter.RemoveCourse(course.Id);
 
-            var removedId = course.Id;
-
             vm.Courses.Remove(course);
 
             TeacherNameText.Text = "";
@@ -152,20 +153,14 @@ namespace WpfStudyingSystem
             }
 
             var app = (App)Application.Current;
-            var controller = app.Services.GetService<IDatabaseController>();
-            if (controller == null)
+            var setter = app.Services.GetService<IDatabaseSetter>();
+            if (setter == null)
             {
                 MessageBox.Show(Strings.Msg_ServicesNotAvailable);
                 return;
             }
 
-            controller.ExecuteCommand(
-        $@"DELETE FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}
-        WHERE CourseId = {course.Id} AND AssignmentId = {assignment.Id};");
-
-            controller.ExecuteCommand(
-        $@"DELETE FROM {TableNameSet.ASSIGNMENTS}
-        WHERE Id = {assignment.Id};");
+            setter.RemoveAssignment(assignment.Id);
 
             var vm = DataContext as MainViewModel;
             if (vm != null) vm.LoadAssignments(course.Id);
@@ -199,9 +194,9 @@ namespace WpfStudyingSystem
 
             var app = (App)Application.Current;
             var director = app.Services.GetService<IBuildDirector>();
-            var controller = app.Services.GetService<IDatabaseController>();
+            var setter = app.Services.GetService<IDatabaseSetter>();
 
-            if (director == null || controller == null)
+            if (director == null || setter == null)
             {
                 MessageBox.Show(Strings.Msg_ServicesNotAvailable);
                 return;
@@ -229,23 +224,11 @@ namespace WpfStudyingSystem
 
             if (redactMode && currentAssignment != null)
             {
-                controller.ExecuteCommand(
-            $@"UPDATE {TableNameSet.ASSIGNMENTS}
-            SET Name = '{safeName}', Date = '{safeDate}', Description = '{safeDesc}', Type = {typeInt}
-            WHERE Id = {currentAssignment.Id};");
+                setter.UpdateAssignment(assignment);
             }
             else
             {
-                DataTable aid = controller.ExecuteReturnCommand(
-            $@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Name, Date, Description, Type)
-            VALUES ('{safeName}', '{safeDate}', '{safeDesc}', {typeInt});
-            SELECT CAST(SCOPE_IDENTITY() AS INT) AS NewId;");
-
-                int newAssignmentId = Convert.ToInt32(aid.Rows[0]["NewId"]);
-
-                controller.ExecuteCommand(
-            $@"INSERT INTO {TableNameSet.ASSIGNMENTS_DEPENDENCIES} (CourseId, AssignmentId)
-            VALUES ({currentCourseId}, {newAssignmentId});");
+                setter.SetAssignment(assignment, currentCourseId);
             }
 
             var vmReload = DataContext as MainViewModel;
@@ -332,10 +315,15 @@ namespace WpfStudyingSystem
 
             if (courseRedactMode && currentCourse != null)
             {
-                controller.ExecuteCommand(
-        $@"UPDATE {TableNameSet.COURSES}
-        SET Name = '{safeName}', TeacherId = {teacherId}
-        WHERE Id = {currentCourse.Id};");
+                var setter = app.Services.GetService<IDatabaseSetter>();
+                if (setter == null)
+                {
+                    MessageBox.Show(Strings.Msg_ServicesNotAvailable);
+                    return;
+                }
+
+                setter.UpdateCourseName(currentCourse.Id, name);
+                setter.AssignTeacherToCourse(teacherId, currentCourse.Id);
 
                 vm.Courses.Clear();
 
@@ -386,6 +374,13 @@ namespace WpfStudyingSystem
                 TeacherNameText.Text = "";
                 return;
             }
+
+            GradesList.ItemsSource = null;
+            GradesList.Items.Clear();
+            currentGradeInfo = null;
+
+            gradesFilterMode = 0;
+            FilterButton.Content = Strings.UI_Filter_All;
 
             TeacherNameText.Text = GetTeacherFullName(course.TeacherId);
 
@@ -470,6 +465,12 @@ namespace WpfStudyingSystem
                 return;
             }
 
+            if (first.Any(char.IsDigit) || last.Any(char.IsDigit))
+            {
+                MessageBox.Show(Strings.Msg_NameLettersOnly);
+                return;
+            }
+
             string ageText = (StudentAgeBox.Text ?? "").Trim();
             int age;
             if (!int.TryParse(ageText, out age) || age <= 0)
@@ -479,20 +480,17 @@ namespace WpfStudyingSystem
             }
 
             var app = (App)Application.Current;
-            var controller = app.Services.GetService<IDatabaseController>();
-            if (controller == null)
+            var setter = app.Services.GetService<IDatabaseSetter>();
+            var director = app.Services.GetService<IBuildDirector>();
+
+            if (setter == null || director == null)
             {
                 MessageBox.Show(Strings.Msg_ServicesNotAvailable);
                 return;
             }
 
-            //
-            IDatabaseSetter setter =  app.Services.GetService<IDatabaseSetter>();
-            IBuildDirector director = app.Services.GetService<IBuildDirector>();
-
             Human nStudent = director.BuildHuman(new StudentBuilder(), first, last, age);
             setter.SetStudent(nStudent);
-            
             setter.AssignStudentToCourse(nStudent.Id, currentStudentsCourseId);
 
             //string safeFirst = first.Replace("'", "''");
@@ -539,16 +537,14 @@ namespace WpfStudyingSystem
             }
 
             var app = (App)Application.Current;
-            var controller = app.Services.GetService<IDatabaseController>();
-            if (controller == null)
+            var setter = app.Services.GetService<IDatabaseSetter>();
+            if (setter == null)
             {
                 MessageBox.Show(Strings.Msg_ServicesNotAvailable);
                 return;
             }
 
-            controller.ExecuteCommand(
-        $@"DELETE FROM {TableNameSet.DRAFTS}
-        WHERE StudentId = {student.Id} AND CourseId = {course.Id};");
+            setter.RemoveStudentFromCourse(student.Id, course.Id);
 
             var vm = DataContext as MainViewModel;
             if (vm != null) vm.LoadCourseStudents(course.Id);
@@ -608,6 +604,11 @@ namespace WpfStudyingSystem
 
             string firstName = parts[0];
             string lastName = string.Join(" ", parts.Skip(1));
+
+            if (firstName.Any(char.IsDigit) || lastName.Any(char.IsDigit))
+            {
+                return -1;
+            }
 
             string safeFirst = firstName.Replace("'", "''");
             string safeLast = lastName.Replace("'", "''");
@@ -673,6 +674,7 @@ namespace WpfStudyingSystem
             else if (gradesFilterMode == 3) list = list.Where(x => x.AssignmentType == AssignmentTypesEnum.EAP).ToList();
 
             GradesList.ItemsSource = null;
+            GradesList.Items.Clear();
 
             if (list == null || list.Count == 0)
             {
@@ -680,6 +682,7 @@ namespace WpfStudyingSystem
                 return;
             }
 
+            //
             GradesList.ItemsSource = list;
         }
         private void GradesSetPoints_Click(object sender, RoutedEventArgs e)
@@ -697,9 +700,22 @@ namespace WpfStudyingSystem
                 return;
             }
 
-            var info = (WpfStudyingSystem.Script.Other.Sets.StudentGradeInfo)GradesList.SelectedItem;
+            if (!(GradesList.SelectedItem is Script.Other.Sets.StudentGradeInfo info))
+            {
+                MessageBox.Show(Strings.Msg_NoGradeData);
+                return;
+            }
             currentGradeInfo = info;
 
+            if (info.AssignmentType == AssignmentTypesEnum.Credit)
+            {
+                MessageBox.Show(
+                    Strings.Msg_CreditPointsHint,
+                    Strings.Msg_InfoTitle,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+            }
             GradeDialogTitle.Text = Strings.Ui_Grade_SetTitle;
             GradePointsBox.Text = info.Points.ToString();
 
@@ -789,6 +805,59 @@ namespace WpfStudyingSystem
             }
 
             GradesList.ItemsSource = list;
+        }
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            var app = (App)Application.Current;
+            var exporter = app.Services.GetService<IExportService>();
+            if (exporter == null)
+            {
+                MessageBox.Show(Strings.Msg_ServicesNotAvailable);
+                return;
+            }
+
+            var csv = exporter.BuildCsvExport();
+
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "CSV files (*.csv)|*.csv";
+            dialog.FileName = "study_system_export.csv";
+
+            bool? result = dialog.ShowDialog();
+            if (result == true)
+            {
+                File.WriteAllText(dialog.FileName, csv, Encoding.UTF8);
+                MessageBox.Show(Strings.Ui_Ok);
+            }
+        }
+
+        private void StudentsSort_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MainViewModel;
+            if (vm == null)
+            {
+                MessageBox.Show(Strings.Msg_ServicesNotAvailable);
+                return;
+            }
+
+            var app = (App)Application.Current;
+            var sorter = app.Services.GetService<Script.Other.Interfaces.ISpecificListFilter>();
+            if (sorter == null)
+            {
+                MessageBox.Show(Strings.Msg_ServicesNotAvailable);
+                return;
+            }
+
+            var list = vm.CourseStudents.ToList();
+
+            var mode = StudentsSortBox.SelectedIndex;
+
+            if (mode == 0) list = sorter.SortListByFirstName(list);
+            else if (mode == 1) list = sorter.SortListByLastName(list);
+            else if (mode == 2) list = sorter.SortListByAge(list);
+            else list = sorter.SortListBySimpleNameName(list);
+
+            vm.CourseStudents.Clear();
+            foreach (var s in list) vm.CourseStudents.Add(s);
         }
     }
 }

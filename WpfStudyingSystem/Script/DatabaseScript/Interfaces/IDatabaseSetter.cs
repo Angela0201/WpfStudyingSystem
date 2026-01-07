@@ -9,6 +9,8 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Interfaces
 {
     public interface IDatabaseSetter
     {
+        //complex setter for database, automatically sets everything in needed direction
+        //as example, by setting assignment, also sets it inside statistics and dependencies
         void SetHunman(Human human);
         void SetTeacher(Human teacher, int humanId = -1);
         void SetStudent(Human student, int humanId = -1);
@@ -29,5 +31,6 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Interfaces
         void RemoveStudentFromCourse(int studentId, int courseId);
         void RemoveTeacherFromCourse(int teacherId, int courseId);
         void UpdateCourseName(int courseId, string newName);
+        void UpdateAssignment(Assignment assignment);
     }
 }

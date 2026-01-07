@@ -10,6 +10,8 @@ namespace WpfStudyingSystem.Script.Other.Interfaces
 {
     public interface IInformator
     {
+        //give some statistics about students and grades after student list loading
+
         void LoadStudentList(List<Human> sLst, int cId);
         List<StudentGradeInfo> GetStudentGradeInfoList();
 

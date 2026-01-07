@@ -154,7 +154,7 @@
     <value>Name is required.</value>
   </data>
   <data name="Msg_NoGrades" xml:space="preserve">
-    <value>No grade data for this course yet.</value>
+    <value>No student  in the course or assignment for this grading method.</value>
   </data>
   <data name="Msg_NoStudentsToAdd" xml:space="preserve">
     <value>No available students to add.</value>
@@ -184,7 +184,7 @@
     <value>Services are not available.</value>
   </data>
   <data name="Msg_TeacherNameFormat" xml:space="preserve">
-    <value>Enter teacher full name</value>
+    <value>Enter teacher full name without digits.</value>
   </data>
   <data name="Msg_TeacherNameRequired" xml:space="preserve">
     <value>Teacher name is required.</value>
@@ -267,8 +267,8 @@
   <data name="Ui_Grade_SetTitle" xml:space="preserve">
     <value>Set student points</value>
   </data>
-  <data name="Ui_Import" xml:space="preserve">
-    <value>Import</value>
+  <data name="Ui_Export" xml:space="preserve">
+    <value>Export</value>
   </data>
   <data name="Ui_LastName" xml:space="preserve">
     <value>Last name</value>
@@ -308,5 +308,32 @@
   </data>
   <data name="Ui_TypeLabel" xml:space="preserve">
     <value>Type:</value>
+  </data>
+  <data name="Msg_CreditPointsHint" xml:space="preserve">
+    <value>For Credit assignments enter 0 for Failed and 1 for Passed.</value>
+  </data>
+  <data name="Msg_InfoTitle" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Ui_StudentSort_FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Ui_StudentSort_LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Ui_StudentSort_Age" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="Ui_StudentSort_Button" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="Ui_StudentSort_FullName" xml:space="preserve">
+    <value>Full name</value>
+  </data>
+  <data name="Msg_NoGradeData" xml:space="preserve">
+    <value>Create an assignment for this type of grading method first.</value>
+  </data>
+  <data name="Msg_NameLettersOnly" xml:space="preserve">
+    <value>Only letters are allowed.</value>
   </data>
 </root>

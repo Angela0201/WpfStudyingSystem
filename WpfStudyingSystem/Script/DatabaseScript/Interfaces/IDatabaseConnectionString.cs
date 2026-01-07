@@ -8,7 +8,7 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Interfaces
 {
     public interface IDatabaseConnectionString
     {
-        //Need to manage connection string (does it need "set" on name?)
+        //Holds the connection string for share usage
         string ConnectionString {  get; }
         string DatabaseName { get; set; }
     }

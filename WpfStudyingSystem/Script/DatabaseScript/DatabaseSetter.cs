@@ -110,28 +110,36 @@ $@"UPDATE {TableNameSet.COURSES}
 
         public void SetAssignment(Assignment assignment, int courseId)
         {///Crates assignment and sets it in assignment dependencies table
+            //MessageBox.Show("AAAAAAAAAAAAAAAAAAA");
+            var app = (App)Application.Current;
+            IDatabaseController ctl = app.Services.GetService<IDatabaseController>();
+
             string command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS} (Name, Date, Description, Type)
- VALUES ('{assignment.Name}', {assignment.DateString}, '{assignment.Description}', {(int)assignment.Type});";
+ VALUES ('{assignment.Name}', '{assignment.DateString}', '{assignment.Description}', {(int)assignment.Type});";
             AssignData(command);
+
+            //MessageBox.Show(command);
 
             command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS_DEPENDENCIES} (CourseId, AssignmentId)
  VALUES ({courseId}, {assignment.Id});";
             AssignData(command);
+            //MessageBox.Show(command);
 
-            var app = (App)Application.Current;
-            IDatabaseController ctl = app.Services.GetService<IDatabaseController>();
+            
             DataTable dt = ctl.ExecuteReturnCommand($@"SELECT * FROM {TableNameSet.DRAFTS} WHERE CourseId = {courseId};");
             if (dt.Rows.Count < 1) { return; }
 
             command =
 $@"INSERT INTO {TableNameSet.ASSIGNMENTS_STATISTICS} (StudentId, AssignmentId, Points)
  VALUES ";
+            if (dt.Rows.Count < 1) { return; }
             foreach (DataRow row in dt.Rows)
             {
                 command += $" ({(int)row["StudentId"]}, {assignment.Id}, 0),";
             }
+            //MessageBox.Show(command);
             command = command.Remove(command.Length - 1) + ";";
             AssignData(command);
 
@@ -203,8 +211,6 @@ $@"INSERT INTO {TableNameSet.TEACHERS} (HumanId)
             AssignData(command);
         }
 
-
-
         private void AssignData(string command)
         {
             var conn = new SqlConnection(ConnStr);
@@ -244,7 +250,6 @@ $@"UPDATE {TableNameSet.ASSIGNMENTS_STATISTICS}
 
         public void AssignStudentToCourse(int studentId, int courseId)
         {
-            MessageBox.Show(courseId.ToString());
             ///Adds student to a course in draft datatable and connects it to the assignments
             string command =
 $@"INSERT INTO {TableNameSet.DRAFTS} (StudentId, CourseId)
@@ -290,12 +295,14 @@ $@"DELETE FROM {TableNameSet.ASSIGNMENTS_STATISTICS} WHERE StudentId = {studentI
 $@"SELECT *
  FROM {TableNameSet.ASSIGNMENTS_DEPENDENCIES}
  WHERE CourseId = {courseId}");
+            if (dt.Rows.Count < 1) { return; }
 
             foreach (DataRow row in dt.Rows)
             {
                 command += $" AssignmentId = {(int)row["AssignmentId"]} OR";
             }
             command = command.Remove(command.Length - 2) + ")";
+            //MessageBox.Show(command);
             AssignData(command);
         }
 
@@ -305,6 +312,20 @@ $@"SELECT *
 $@"UPDATE {TableNameSet.COURSES}
  SET TeacherId = -1
  WHERE Id = {courseId} AND TeacherId = {teacherId};";
+            AssignData(command);
+        }
+        public void UpdateAssignment(Assignment assignment)
+        {
+            string safeName = (assignment.Name ?? "").Replace("'", "''");
+            string safeDesc = (assignment.Description ?? "").Replace("'", "''");
+            string safeDate = assignment.Date.ToString("yyyy-MM-dd HH:mm:ss");
+            int typeInt = (int)assignment.Type;
+
+            string command =
+        $@"UPDATE {TableNameSet.ASSIGNMENTS}
+SET Name = '{safeName}', Date = '{safeDate}', Description = '{safeDesc}', Type = {typeInt}
+WHERE Id = {assignment.Id};";
+
             AssignData(command);
         }
     }

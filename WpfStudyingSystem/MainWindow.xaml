@@ -65,6 +65,18 @@
             <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,8">
                 <Button Content="{x:Static res:Strings.Ui_Add}" Margin="0,0,5,0" Click="StudentsAdd_Click"/>
                 <Button Content="{x:Static res:Strings.Ui_Delete}" Click="StudentsDelete_Click"/>
+
+                <ComboBox x:Name="StudentsSortBox" Width="140" Margin="8,0,0,0" SelectedIndex="0">
+                    <ComboBoxItem Content="{x:Static res:Strings.Ui_StudentSort_FirstName}" />
+                    <ComboBoxItem Content="{x:Static res:Strings.Ui_StudentSort_LastName}" />
+                    <ComboBoxItem Content="{x:Static res:Strings.Ui_StudentSort_Age}" />
+                    <ComboBoxItem Content="{x:Static res:Strings.Ui_StudentSort_FullName}" />
+                </ComboBox>
+                
+                <Button Content="{x:Static res:Strings.Ui_StudentSort_Button}"
+                        Width="80"
+                        Margin="8,0,0,0"
+                        Click="StudentsSort_Click" />
             </StackPanel>
 
             <Button x:Name="FilterButton"
@@ -124,9 +136,10 @@
                     Click="GradesSetPoints_Click"/>
 
             <Button Grid.Row="4"
-                    Content="{x:Static res:Strings.Ui_Import}"
+                    Content="{x:Static res:Strings.Ui_Export}"
                     Height="28"
-                    HorizontalAlignment="Stretch"/>
+                    HorizontalAlignment="Stretch"
+                    Click="Export_Click"/>
         </Grid>
         
         <Border x:Name="AssignmentDialogOverlay"
