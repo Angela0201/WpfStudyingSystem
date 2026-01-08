@@ -125,10 +125,12 @@
     <Compile Include="Script\DatabaseScript\Interfaces\IDatabaseGenerator.cs" />
     <Compile Include="Script\DatabaseScript\Interfaces\IDatabaseGetter.cs" />
     <Compile Include="Script\DatabaseScript\Interfaces\IDatabaseSetter.cs" />
+    <Compile Include="Script\DatabaseScript\Interfaces\IDemoSeeder.cs" />
     <Compile Include="Script\DatabaseScript\Interfaces\IStudyDatabaseAssigner.cs" />
     <Compile Include="Script\DatabaseScript\Usables\DatabaseConnectionString.cs" />
     <Compile Include="Script\DatabaseScript\Usables\DatabaseGenerator.cs" />
     <Compile Include="Script\DatabaseScript\DatabaseSetter.cs" />
+    <Compile Include="Script\DatabaseScript\Usables\DemoSeeder.cs" />
     <Compile Include="Script\DatabaseScript\Usables\Sets\TableNameSet.cs" />
     <Compile Include="Script\Exporting\ExportService.cs" />
     <Compile Include="Script\Exporting\StudySystemExportData.cs" />

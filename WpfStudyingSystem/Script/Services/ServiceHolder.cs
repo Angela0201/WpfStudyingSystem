@@ -39,6 +39,7 @@ namespace WpfStudyingSystem.Script.Services
             sc.AddSingleton<ISpecificListFilter, SpecificListFilter>();
             sc.AddSingleton<IInformator, Informator>();
             sc.AddSingleton<IExportService, ExportService>();
+            sc.AddSingleton<IDemoSeeder, DemoSeeder>();
 
             services = sc.BuildServiceProvider();
         }
