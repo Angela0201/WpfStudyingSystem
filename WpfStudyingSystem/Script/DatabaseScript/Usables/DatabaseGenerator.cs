@@ -40,7 +40,8 @@ namespace WpfStudyingSystem.Script.DatabaseScript.Usables
             table = @"IF OBJECT_ID('Assignments') IS NULL
                 CREATE TABLE Assignments(
                 Id INT NOT NULL PRIMARY KEY IDENTITY,
-                Date DATETIME,
+                Name VARCHAR(100) NOT NULL,
+                Date DATETIME NOT NULL,
                 Description VARCHAR(300),
                 Type INT NOT NULL
                 )";

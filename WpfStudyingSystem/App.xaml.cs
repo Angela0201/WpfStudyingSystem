@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using WpfStudyingSystem.Script.DatabaseScript;
+using WpfStudyingSystem.Script.DatabaseScript.Interfaces;
 using WpfStudyingSystem.Script.DatabaseScript.Usables;
 using WpfStudyingSystem.Script.Interfaces;
 using WpfStudyingSystem.Script.Services;
@@ -18,5 +18,21 @@ namespace WpfStudyingSystem
     {
         private IServiceHolder services = new ServiceHolder();
         public IServiceProvider Services => services.Services;
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var controller = Services.GetService<IDatabaseController>();
+            if (controller != null)
+            {
+                controller.GenerateDatabase();
+            }
+
+            var seeder = Services.GetService<IDemoSeeder>();
+            if (seeder != null && controller != null)
+            {
+                seeder.SeedIfEmpty(controller);
+            }
+        }
     }
 }

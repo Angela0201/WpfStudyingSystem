@@ -57,11 +57,14 @@ namespace WpfStudyingSystem.Script.Other.Interfaces
 
         public void LoadStudentList(List<Human> sLst, int cId)
         {
-            studentList = sLst;
+            studentList = sLst ?? new List<Human>();
             courseId = cId;
+
+            gradeList = new List<StudentGradeInfo>();
 
             var app = (App)Application.Current;
             IDatabaseController dtc = app.Services.GetService<IDatabaseController>();
+            if (dtc == null) return;
 
             DataTable table = dtc.ExecuteReturnCommand($"SELECT * FROM {TableNameSet.DRAFTS} WHERE CourseId = {cId}");
             if (table.Rows.Count < 1) { return; }

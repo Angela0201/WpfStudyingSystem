@@ -132,8 +132,25 @@ namespace WpfStudyingSystem
             setter.RemoveCourse(course.Id);
 
             vm.Courses.Remove(course);
+            CoursesList.SelectedItem = null;
 
             TeacherNameText.Text = "";
+            StudentInfoText.Text = "";
+            AssignmentInfoText.Text = "";
+
+            vm.CourseStudents.Clear();
+            vm.Assignments.Clear();
+
+            GradesList.ItemsSource = null;
+            GradesList.Items.Clear();
+
+            gradesFilterMode = 0;
+            FilterButton.Content = Strings.UI_Filter_All;
+
+            currentCourseId = 0;
+            currentStudentsCourseId = 0;
+            currentGradeInfo = null;
+            GradeDialogOverlay.Visibility = Visibility.Collapsed;
         }
 
         private void AssignmentsDelete_Click(object sender, RoutedEventArgs e)
@@ -369,18 +386,27 @@ namespace WpfStudyingSystem
         {
             var vm = DataContext as MainViewModel;
             var course = CoursesList.SelectedItem as Course;
-            if (course == null)
-            {
-                TeacherNameText.Text = "";
-                return;
-            }
 
             GradesList.ItemsSource = null;
             GradesList.Items.Clear();
             currentGradeInfo = null;
+            GradeDialogOverlay.Visibility = Visibility.Collapsed;
 
             gradesFilterMode = 0;
             FilterButton.Content = Strings.UI_Filter_All;
+
+            if (course == null)
+            {
+                TeacherNameText.Text = "";
+                StudentInfoText.Text = "";
+                AssignmentInfoText.Text = "";
+                if (vm != null)
+                {
+                    vm.CourseStudents.Clear();
+                    vm.Assignments.Clear();
+                }
+                return;
+            }
 
             TeacherNameText.Text = GetTeacherFullName(course.TeacherId);
 
@@ -388,6 +414,7 @@ namespace WpfStudyingSystem
             vm.LoadCourseStudents(course.Id);
             vm.LoadAssignments(course.Id);
             StudentInfoText.Text = "";
+            AssignmentInfoText.Text = "";
 
             //
             FilterGradeNonChange(FilterButton, null);
@@ -398,9 +425,18 @@ namespace WpfStudyingSystem
         private void FilterGradeNonChange(object sender, EventArgs e)
         {
             var course = CoursesList.SelectedItem as Course;
+            GradesList.ItemsSource = null;
+            GradesList.Items.Clear();
+
             if (course == null)
             {
-                MessageBox.Show(Strings.Msg_SelectCourseFirst);
+                return;
+            }
+
+            var vm = DataContext as MainViewModel;
+            if (vm == null)
+            {
+                MessageBox.Show(Strings.Msg_ServicesNotAvailable);
                 return;
             }
 
@@ -412,12 +448,7 @@ namespace WpfStudyingSystem
                 return;
             }
 
-            var students = new List<Human>();
-            foreach (var item in StudentsList.Items)
-            {
-                var h = item as Human;
-                if (h != null) students.Add(h);
-            }
+            var students = vm.CourseStudents.ToList();
 
             informator.LoadStudentList(students, course.Id);
 
